@@ -1,0 +1,16 @@
+.mainContainer {
+  display: flex;
+  margin: 0px 0px 24px;
+  .separator {
+    margin: 0 5px; /* Adjust as needed */
+    color: #aaa; /* Separator color */
+  }
+
+  a {
+    text-decoration: none;
+    color: #333; /* Link color */
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

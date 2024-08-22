@@ -1,0 +1,18 @@
+.header {
+  padding: 16px 0;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40%
+}
+
+.logo {
+  width: 170px;
+}
+
+.hide {
+  display: none;
+}
