@@ -17,6 +17,12 @@ module.exports = async () => {
     destination: "/ie-incompatible.html",
   };
 
+  const categoryRedirect = {
+    source: "/category",
+    destination: "/category/ranks",
+    permanent: true,
+  };
+
   try {
     const redirectsRes = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/redirects?limit=1000&depth=1`,
@@ -68,7 +74,7 @@ module.exports = async () => {
       });
     }
 
-    const redirects = [internetExplorerRedirect, ...dynamicRedirects];
+    const redirects = [internetExplorerRedirect, categoryRedirect, ...dynamicRedirects];
 
     return redirects;
   } catch (error) {
