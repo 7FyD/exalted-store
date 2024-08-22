@@ -25,7 +25,7 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
     >
       <Link className="flex" href="/">
         <Image
-          src="/server-icon big.png"
+          src="/logo-nobg.png"
           alt="A dragon behind a shield on which EK is written"
           width={64}
           height={64}
