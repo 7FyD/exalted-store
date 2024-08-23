@@ -5,7 +5,7 @@ import RanksPage from "../Ranks";
 export default async function Page({ params: { slug = "ranks" } }) {
   return (
     <React.Fragment>
-      {slug === "ranks" ? (
+      {slug.toLocaleLowerCase() === "ranks" ? (
         <section className="space-y-8">
           <RanksPage />
         </section>

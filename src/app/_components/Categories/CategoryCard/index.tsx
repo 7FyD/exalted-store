@@ -17,7 +17,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   const { setCategoryFilters } = useFilter();
   return (
     <Link
-      href="/products"
+      href={`category/${category.title.toLowerCase()}`}
       className={`flex justify-center items-end w-full min-h-64 bg-40% bg-center bg-no-repeat border-2 transition-shadow duration-300 ease-in-out shadow hover:!shadow-yellow-600`}
       style={{ backgroundImage: `url(${imageUrl})` }}
       onClick={() => setCategoryFilters([category.id])}
