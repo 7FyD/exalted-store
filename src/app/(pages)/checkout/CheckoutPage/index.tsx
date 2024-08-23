@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
@@ -109,7 +109,6 @@ export const CheckoutPage: React.FC<{
                   quantity,
                   product,
                   product: { title, meta },
-                  size,
                 } = item;
 
                 if (!quantity) return null;
@@ -124,7 +123,6 @@ export const CheckoutPage: React.FC<{
                       metaImage={metaImage}
                       quantity={quantity}
                       index={index}
-                      size={size}
                     />
                   </Fragment>
                 );

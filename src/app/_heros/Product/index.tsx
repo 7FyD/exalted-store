@@ -25,7 +25,6 @@ export const ProductHero: React.FC<{
     meta: { image: metaImage, description } = {},
   } = product;
   const { setCategoryFilters } = useFilter();
-  const [size, setSize] = useState<string>(product.sizes[0].size);
   return (
     <Gutter className={classes.productHero}>
       <div className={classes.mediaWrapper}>
@@ -59,29 +58,11 @@ export const ProductHero: React.FC<{
           <span className={classes.separator}>|</span>
           <p className={classes.stock}> In stock</p>
         </div>
-        <Price size={size} product={product} button={false} />
+        <Price product={product} button={false} />
         <div className={classes.description}>
           <p>{description}</p>
         </div>
-        <h2 className="text-lg font-semibold mb-2">Size</h2>
-        <div className="flex flex-row flex-wrap gap-6 mb-6">
-          {product.sizes?.map((item, index) => {
-            return (
-              <Button
-                className={`rounded-full w-16 border-2 transition-colors ${
-                  size === item.size
-                    ? "bg-black hover:bg-black text-white  border-0"
-                    : "bg-white hover:bg-white text-black  hover:border-black"
-                }`}
-                key={index}
-                onClick={() => setSize(item.size)}
-              >
-                {item.size}
-              </Button>
-            );
-          })}
-        </div>
-        <AddToCartButton size={size} product={product} className={classes.addToCartButton} />
+        <AddToCartButton product={product} className={classes.addToCartButton} />
         {additionalInformation && <Accordion data={additionalInformation} />}
       </div>
     </Gutter>

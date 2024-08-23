@@ -17,7 +17,6 @@ export type CartItems =
   | {
       product?: (string | null) | Product;
       quantity?: number | null;
-      size?: string | null;
       id?: string | null;
     }[]
   | null;
@@ -203,10 +202,6 @@ export interface Category {
 export interface Product {
   id: string;
   title: string;
-  sizes: {
-    size: string;
-    id?: string | null;
-  }[];
   additionalInformation?: AdditionalInformation;
   publishedOn?: string | null;
   layout: (
@@ -431,7 +426,6 @@ export interface Order {
         product: string | Product;
         price?: number | null;
         quantity?: number | null;
-        size?: string | null;
         id?: string | null;
       }[]
     | null;

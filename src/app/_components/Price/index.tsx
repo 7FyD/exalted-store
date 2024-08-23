@@ -12,25 +12,24 @@ import classes from "./index.module.scss";
 export const Price: React.FC<{
   product: Product;
   quantity?: number;
-  size?: string;
   button?: "addToCart" | "removeFromCart" | false;
 }> = props => {
-  const { product, product: { priceJSON } = {}, button = "addToCart", quantity, size } = props;
+  const { product, product: { priceJSON } = {}, button = "addToCart", quantity } = props;
 
   const [price, setPrice] = useState<{
     actualPrice: string;
     withQuantity: string;
   }>(() => ({
-    actualPrice: priceFromJSON(priceJSON, size),
-    withQuantity: priceFromJSON(priceJSON, size, quantity),
+    actualPrice: priceFromJSON(priceJSON),
+    withQuantity: priceFromJSON(priceJSON, quantity),
   }));
 
   useEffect(() => {
     setPrice({
-      actualPrice: priceFromJSON(priceJSON, size),
-      withQuantity: priceFromJSON(priceJSON, size, quantity),
+      actualPrice: priceFromJSON(priceJSON),
+      withQuantity: priceFromJSON(priceJSON, quantity),
     });
-  }, [priceJSON, quantity, size]);
+  }, [priceJSON, quantity]);
 
   return (
     <div className={classes.actions}>
@@ -43,11 +42,9 @@ export const Price: React.FC<{
         </div>
       )}
       {button && button === "addToCart" && (
-        <AddToCartButton size={size} product={product} appearance="default" />
+        <AddToCartButton product={product} appearance="default" />
       )}
-      {button && button === "removeFromCart" && (
-        <RemoveFromCartButton size={size} product={product} />
-      )}
+      {button && button === "removeFromCart" && <RemoveFromCartButton product={product} />}
     </div>
   );
 };

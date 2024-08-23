@@ -7,6 +7,10 @@ export const PRODUCTS = `
       docs {
         title
         slug
+        additionalInformation {
+          title
+          message
+        }
         meta { 
           title
           image {
@@ -15,10 +19,10 @@ export const PRODUCTS = `
             height
           }
         }
-        sizes {
-          size
-        }
-        ${PRODUCT_CATEGORIES}
+        priceJSON
+        stripeProductID
+
+        
       }
     }
   }
@@ -33,9 +37,6 @@ export const PRODUCT = `
         additionalInformation {
           title
           message
-        }
-        sizes {
-          size
         }
         stripeProductID
         ${PRODUCT_CATEGORIES}

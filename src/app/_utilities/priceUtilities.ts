@@ -1,55 +1,24 @@
-export const countPricesFromJSON = (jsonString: string): number => {
-  const uniquePrices = new Set<number>();
-
-  if (jsonString) {
-    try {
-      const parsed = JSON.parse(jsonString)?.data;
-      if (Array.isArray(parsed)) {
-        parsed.forEach((item: any) => {
-          uniquePrices.add(item.unit_amount);
-        });
-      }
-    } catch (e: unknown) {
-      console.error(`Cannot parse JSON: ${e}`); // eslint-disable-line no-console
-    }
-  }
-
-  return uniquePrices.size;
-};
-
-export const priceFromJSON = (
-  jsonString: string,
-  size: string,
-  quantity = 1,
-  raw?: boolean,
-): string => {
+export const priceFromJSON = (jsonString: string, quantity = 1, raw?: boolean): string => {
   let price = "";
   if (jsonString) {
     try {
-      const parsed = JSON.parse(jsonString)?.data;
-      if (Array.isArray(parsed)) {
-        const priceObject = size
-          ? parsed.find((item: any) => item.metadata?.size === size)
-          : parsed[0];
-        if (priceObject) {
-          const priceValue = priceObject.unit_amount * quantity;
-          const priceType = priceObject.type;
+      const parsed = JSON.parse(jsonString)?.data[0];
+      const priceValue = parsed.unit_amount * quantity;
+      const priceType = parsed.type;
 
-          if (raw) return priceValue.toString();
+      if (raw) return priceValue.toString();
 
-          price = (priceValue / 100).toLocaleString("en-US", {
-            style: "currency",
-            currency: "EUR", // TODO: use `priceObject.currency`
-          });
+      price = (priceValue / 100).toLocaleString("en-US", {
+        style: "currency",
+        currency: "EUR", // TODO: use `parsed.currency`
+      });
 
-          if (priceType === "recurring") {
-            price += `/${
-              priceObject.recurring.interval_count > 1
-                ? `${priceObject.recurring.interval_count} ${priceObject.recurring.interval}`
-                : priceObject.recurring.interval
-            }`;
-          }
-        }
+      if (priceType === "recurring") {
+        price += `/${
+          parsed.recurring.interval_count > 1
+            ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+            : parsed.recurring.interval
+        }`;
       }
     } catch (e: unknown) {
       console.error(`Cannot parse priceJSON`); // eslint-disable-line no-console
@@ -59,16 +28,13 @@ export const priceFromJSON = (
   return price;
 };
 
-export const priceIdFromJSON = (jsonString: string, size: string): string | null => {
+export const priceIdFromJSON = (jsonString: string): string | null => {
   let id: string | null = null;
   if (jsonString) {
     try {
-      const parsed = JSON.parse(jsonString)?.data;
-      if (Array.isArray(parsed)) {
-        const priceObject = parsed.find((item: any) => item.metadata?.size === size);
-        if (priceObject && priceObject.id) {
-          id = priceObject.id;
-        }
+      const parsed = JSON.parse(jsonString)?.data[0];
+      if (parsed?.id) {
+        id = parsed.id;
       }
     } catch (e: unknown) {
       console.error("Cannot parse JSON"); // eslint-disable-line no-console

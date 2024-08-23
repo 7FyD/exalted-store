@@ -4,7 +4,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Product } from "../../../payload/payload-types";
-import { countPricesFromJSON } from "../../_utilities/priceUtilities";
 import { Media } from "../Media";
 import { Price } from "../Price";
 
@@ -30,7 +29,6 @@ export const Card: React.FC<{
   } = props;
 
   const { description, image: metaImage } = meta || {};
-  const prices = countPricesFromJSON(priceJSON);
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const titleToUse = titleFromProps || title;
   const sanitizedDescription = description?.replace(/\s/g, " "); // replace non-breaking space with white space
@@ -78,10 +76,7 @@ export const Card: React.FC<{
           </h4>
         )}
         {showPrice && (
-          <div className="flex flex-row gap-1">
-            {prices > 1 && <p className="w-max font-light">Starting from</p>}
-            {doc && <Price size={doc.sizes[0].size} product={doc} button={false} />}
-          </div>
+          <div className="flex flex-row gap-1">{doc && <Price product={doc} button={false} />}</div>
         )}
       </div>
     </div>

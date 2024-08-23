@@ -106,13 +106,12 @@ export const CheckoutForm: React.FC<{}> = () => {
                     shippingAddress.billingFirstName + " " + shippingAddress.billingLastName,
                 },
                 stripePaymentIntentID: paymentIntent.id,
-                items: (cart?.items || [])?.map(({ product, quantity, size }) => ({
+                items: (cart?.items || [])?.map(({ product, quantity }) => ({
                   product: typeof product === "string" ? product : product.id,
-                  size,
                   quantity,
                   price:
                     typeof product === "object"
-                      ? priceFromJSON(product.priceJSON, size, 1, true)
+                      ? priceFromJSON(product.priceJSON, 1, true)
                       : undefined,
                 })),
               }),

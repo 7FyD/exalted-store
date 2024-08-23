@@ -19,6 +19,7 @@ const getProductByStripeId = async (payload: Payload, id: string): Promise<Produ
   if (logs) {
     payload.logger.info("Product: " + product.docs[0] + " ID: " + id);
   }
+  /* @ts-expect-error */
   return product.docs[0];
 };
 
@@ -61,7 +62,6 @@ export const checkoutCompleted: StripeWebhookHandler<{
           product: product,
           quantity: item.quantity,
           price: item.price.unit_amount,
-          size: item.price.metadata.size,
         };
       }),
     );
@@ -94,7 +94,6 @@ export const checkoutCompleted: StripeWebhookHandler<{
       items: products.map(item => ({
         product: typeof item.product === "string" ? item.product : item.product.id,
         quantity: item.quantity,
-        size: item.size,
         price: item.price,
       })),
     };

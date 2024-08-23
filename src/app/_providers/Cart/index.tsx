@@ -17,10 +17,10 @@ import { CartItem, cartReducer } from "./reducer";
 export type CartContext = {
   cart: User["cart"];
   addItemToCart: (item: CartItem) => void;
-  deleteItemFromCart: (product: Product, size: string) => void;
+  deleteItemFromCart: (product: Product) => void;
   cartIsEmpty: boolean | undefined;
   clearCart: () => void;
-  isProductInCart: (product: Product, size: string) => boolean;
+  isProductInCart: (product: Product) => boolean;
   cartTotal: {
     formatted: string;
     raw: number;
@@ -185,15 +185,15 @@ export const CartProvider = props => {
   }, [user, cart]);
 
   const isProductInCart = useCallback(
-    (incomingProduct: Product, size: string): boolean => {
+    (incomingProduct: Product): boolean => {
       let isInCart = false;
       const { items: itemsInCart } = cart || {};
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
         isInCart = Boolean(
-          itemsInCart.find(({ product, size: itemSize }) =>
+          itemsInCart.find(({ product }) =>
             typeof product === "string"
-              ? product === incomingProduct.id && itemSize === size
-              : product?.id === incomingProduct.id && itemSize === size,
+              ? product === incomingProduct.id
+              : product?.id === incomingProduct.id,
           ), // eslint-disable-line function-paren-newline
         );
       }
@@ -203,17 +203,17 @@ export const CartProvider = props => {
   );
 
   // this method can be used to add new items AND update existing ones
-  const addItemToCart = useCallback((incomingItem: CartItem) => {
+  const addItemToCart = useCallback(incomingItem => {
     dispatchCart({
       type: "ADD_ITEM",
       payload: incomingItem,
     });
   }, []);
 
-  const deleteItemFromCart = useCallback((incomingProduct: Product, size: string) => {
+  const deleteItemFromCart = useCallback((incomingProduct: Product) => {
     dispatchCart({
       type: "DELETE_ITEM",
-      payload: { product: incomingProduct, size },
+      payload: incomingProduct,
     });
   }, []);
 
@@ -229,27 +229,19 @@ export const CartProvider = props => {
 
     const newTotal =
       cart?.items?.reduce((acc, item) => {
-        let unitAmount = 0;
-        try {
-          const priceData =
-            typeof item.product === "object"
-              ? JSON.parse(item?.product?.priceJSON || "{}")?.data || []
-              : [];
-          const matchingPrice = priceData.find(price => price.metadata.size === item.size);
-          if (matchingPrice) {
-            unitAmount =
-              matchingPrice.unit_amount * (typeof item?.quantity === "number" ? item?.quantity : 0);
-          }
-        } catch (error) {
-          console.error("Error parsing priceJSON:", error);
-        }
-        return acc + unitAmount;
+        return (
+          acc +
+          (typeof item.product === "object"
+            ? JSON.parse(item?.product?.priceJSON || "{}")?.data?.[0]?.unit_amount *
+              (typeof item?.quantity === "number" ? item?.quantity : 0)
+            : 0)
+        );
       }, 0) || 0;
 
     setTotal({
       formatted: (newTotal / 100).toLocaleString("en-US", {
         style: "currency",
-        currency: "EUR",
+        currency: "USD",
       }),
       raw: newTotal,
     });

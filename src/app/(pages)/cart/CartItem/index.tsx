@@ -10,28 +10,28 @@ import { RemoveFromCartButton } from "../../../_components/RemoveFromCartButton"
 
 import classes from "./index.module.scss";
 
-const CartItem = ({ product, title, metaImage, qty, size, addItemToCart, showPrice = true }) => {
+const CartItem = ({ product, title, metaImage, qty, addItemToCart, showPrice = true }) => {
   const [quantity, setQuantity] = useState(qty);
 
   const decrementQty = () => {
     const updatedQty = quantity > 1 ? quantity - 1 : 1;
 
     setQuantity(updatedQty);
-    addItemToCart({ product, quantity: Number(updatedQty), size });
+    addItemToCart({ product, quantity: Number(updatedQty) });
   };
 
   const incrementQty = () => {
     const updatedQty = quantity + 1;
 
     setQuantity(updatedQty);
-    addItemToCart({ product, quantity: Number(updatedQty), size });
+    addItemToCart({ product, quantity: Number(updatedQty) });
   };
 
   const enterQty = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedQty = Number(e.target.value);
 
     setQuantity(updatedQty);
-    addItemToCart({ product, quantity: Number(updatedQty), size });
+    addItemToCart({ product, quantity: Number(updatedQty) });
   };
 
   return (
@@ -47,9 +47,8 @@ const CartItem = ({ product, title, metaImage, qty, size, addItemToCart, showPri
         <div className={classes.titleWrapper}>
           <div className="flex flex-col items-start">
             <h6>{title}</h6>
-            <h6>Size: {size}</h6>
           </div>
-          {showPrice && <Price size={size} product={product} button={false} />}
+          {showPrice && <Price product={product} button={false} />}
         </div>
 
         <div className={classes.quantity}>
@@ -83,8 +82,8 @@ const CartItem = ({ product, title, metaImage, qty, size, addItemToCart, showPri
       </div>
 
       <div className={classes.subtotalWrapper}>
-        <Price size={size} product={product} button={false} quantity={quantity} />
-        <RemoveFromCartButton size={size} product={product} />
+        <Price product={product} button={false} quantity={quantity} />
+        <RemoveFromCartButton product={product} />
       </div>
     </li>
   );

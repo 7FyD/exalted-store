@@ -47,19 +47,6 @@ const Products: CollectionConfig = {
       required: true,
     },
     {
-      name: "sizes",
-      type: "array",
-      required: true,
-      minRows: 1,
-      fields: [
-        {
-          name: "size",
-          type: "text",
-          required: true,
-        },
-      ],
-    },
-    {
       name: "additionalInformation", // required
       type: "array", // required
       label: "Additional information",
