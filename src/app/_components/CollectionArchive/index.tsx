@@ -13,7 +13,7 @@ import { Pagination } from "../Pagination";
 
 import classes from "./index.module.scss";
 
-type Result = {
+export type Result = {
   docs: (Product | string)[];
   hasNextPage: boolean;
   hasPrevPage: boolean;
