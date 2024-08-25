@@ -3,7 +3,9 @@ import type { Result } from "../_components/CollectionArchive";
 
 export const fetchProducts = async (categoryTitle: string): Promise<Product[]> => {
   const response = await fetch(
-    `http://localhost:3000/api/products?where[categories.title][equals]=${encodeURIComponent(
+    `${
+      process.env.NEXT_PUBLIC_SERVER_URL
+    }/api/products?where[categories.title][equals]=${encodeURIComponent(
       categoryTitle.toLowerCase(),
     )}`,
   );
