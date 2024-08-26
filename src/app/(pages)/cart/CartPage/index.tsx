@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Fragment } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { createCheckoutSession } from "../../../../payload/endpoints/create-checkout-session";
@@ -10,6 +11,7 @@ import { LoadingShimmer } from "../../../_components/LoadingShimmer";
 import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
 import CartItem from "../CartItem";
+import { checkAccount } from "../CheckAccount";
 
 import classes from "./index.module.scss";
 
@@ -56,13 +58,24 @@ export const CartPage: React.FC<{
           ) : (
             <div className={classes.cartWrapper}>
               <div>
-                <Button
-                  className="mb-4"
-                  appearance="primary"
-                  label="Clear cart"
-                  el="button"
-                  onClick={clearCart}
-                />
+                <div className="flex flex-row gap-4 items-center">
+                  <Button
+                    className="mb-4"
+                    appearance="primary"
+                    label="Clear cart"
+                    el="button"
+                    onClick={clearCart}
+                  />
+                  {/* TODO: add button to add username to checkout that verifies the 
+                  account via mojang api and gets the skin fron mineskin.eu */}
+                  <Image
+                    src={"https://mineskin.eu/helm/ZEW69/100.png"}
+                    alt="logo"
+                    width={100}
+                    height={100}
+                    onClick={() => checkAccount()}
+                  />
+                </div>
                 {/* CART LIST HEADER */}
                 <div className={classes.header}>
                   <p>Products</p>
@@ -81,7 +94,6 @@ export const CartPage: React.FC<{
                         quantity,
                         product,
                         product: { id, title, meta, stripeProductID },
-                        size,
                       } = item;
                       const isLast = index === (cart?.items?.length || 0) - 1;
 
@@ -93,7 +105,6 @@ export const CartPage: React.FC<{
                           title={title}
                           metaImage={metaImage}
                           qty={quantity}
-                          size={size}
                           addItemToCart={addItemToCart}
                           key={index}
                           showPrice={false}
@@ -123,7 +134,6 @@ export const CartPage: React.FC<{
                     €{((cartTotal.raw / 100 / 100) * 19).toFixed(2)}
                   </p>
                 </div> */}
-
                 <div className={classes.row}>
                   <p className={classes.cartTotal}>Grand Total</p>
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>
