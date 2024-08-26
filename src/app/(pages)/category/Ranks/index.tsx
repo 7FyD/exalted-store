@@ -26,10 +26,15 @@ const RanksPage = () => {
   const products: Product[] = data;
 
   return (
-    <Gutter>
+    <Gutter className="space-y-8  text-center md:text-start">
       <h2 className="text-2xl font-semibold">Server ranks</h2>
+      <p className="text-muted-foreground !mt-0">
+        These are the ranks that are available for purchase on our server.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 items-center">
-        {products.map(RankCard)}
+        {products.map((product, index) => {
+          return <RankCard key={index} product={product} index={index} />;
+        })}
       </div>
     </Gutter>
   );
