@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,8 +10,9 @@ import { Button } from "../../../_components/Button";
 import { LoadingShimmer } from "../../../_components/LoadingShimmer";
 import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
+import AccountModal from "../AccountModal";
 import CartItem from "../CartItem";
-import { checkAccount } from "../CheckAccount";
+import { CheckAccount } from "../CheckAccount";
 
 import classes from "./index.module.scss";
 
@@ -24,6 +25,7 @@ export const CartPage: React.FC<{
 
   const { user } = useAuth();
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart, clearCart } = useCart();
+  const [account, setAccount] = useState<string | null>(null);
   const checkout = React.useCallback(async () => {
     if (user) {
       const response = await createCheckoutSession(cart.items, user?.email);
@@ -73,7 +75,7 @@ export const CartPage: React.FC<{
                     alt="logo"
                     width={100}
                     height={100}
-                    onClick={() => checkAccount()}
+                    onClick={() => CheckAccount("ZEW69")}
                   />
                 </div>
                 {/* CART LIST HEADER */}
@@ -148,18 +150,24 @@ export const CartPage: React.FC<{
                 )}
                 {user && (
                   <Fragment>
-                    <Button
-                      className={classes.checkoutButton}
-                      href={user ? "/checkout" : "/login?redirect=cart"}
-                      label={user ? "Checkout" : "Login to checkout"}
-                      appearance="primary"
-                    />
-                    <Button
-                      className={classes.checkoutButton}
-                      onClick={checkout}
-                      label={user ? "Stripe checkout" : "Login to checkout"}
-                      appearance="secondary"
-                    />
+                    {account ? (
+                      <Fragment>
+                        <Button
+                          className={classes.checkoutButton}
+                          href="/checkout"
+                          label="Checkout"
+                          appearance="primary"
+                        />
+                        <Button
+                          className={classes.checkoutButton}
+                          onClick={checkout}
+                          label="Stripe checkout"
+                          appearance="secondary"
+                        />
+                      </Fragment>
+                    ) : (
+                      <AccountModal />
+                    )}
                   </Fragment>
                 )}
               </div>
