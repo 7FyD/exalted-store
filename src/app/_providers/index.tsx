@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import { Toaster } from "../_components/ui/toaster";
 import { AuthProvider } from "./Auth";
 import { CartProvider } from "./Cart";
 import { FilterProvider } from "./Filter";
@@ -17,6 +18,7 @@ export const Providers: React.FC<{
         <QueryProvider>
           <FilterProvider>
             <CartProvider>{children}</CartProvider>
+            <Toaster />
           </FilterProvider>
         </QueryProvider>
       </AuthProvider>
