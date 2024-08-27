@@ -407,19 +407,10 @@ export interface Order {
   total: number;
   contactDetails: {
     email: string;
-    phoneNumber?: string | null;
   };
-  shippingDetails: {
-    fullName: string;
-    company?: string | null;
-    country: string;
-    region: string;
-    city: string;
-    addressLineOne: string;
-    addressLineTwo?: string | null;
-  };
-  billingDetails?: {
-    fullName?: string | null;
+  orderDetails: {
+    status: 'pending' | 'paid' | 'completed';
+    minecraftUsername: string;
   };
   items?:
     | {

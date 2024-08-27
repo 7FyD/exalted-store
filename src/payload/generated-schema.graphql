@@ -5014,8 +5014,7 @@ type Order {
   stripePaymentIntentID: String
   total: Float!
   contactDetails: Order_ContactDetails
-  shippingDetails: Order_ShippingDetails
-  billingDetails: Order_BillingDetails
+  orderDetails: Order_OrderDetails
   items: [Order_Items!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -5063,21 +5062,17 @@ scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/in
 
 type Order_ContactDetails {
   email: EmailAddress
-  phoneNumber: String
 }
 
-type Order_ShippingDetails {
-  fullName: String
-  company: String
-  country: String
-  region: String
-  city: String
-  addressLineOne: String
-  addressLineTwo: String
+type Order_OrderDetails {
+  status: Order_OrderDetails_status
+  minecraftUsername: String
 }
 
-type Order_BillingDetails {
-  fullName: String
+enum Order_OrderDetails_status {
+  pending
+  paid
+  completed
 }
 
 type Order_Items {
@@ -5106,15 +5101,8 @@ input Order_where {
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
-  contactDetails__phoneNumber: Order_contactDetails__phoneNumber_operator
-  shippingDetails__fullName: Order_shippingDetails__fullName_operator
-  shippingDetails__company: Order_shippingDetails__company_operator
-  shippingDetails__country: Order_shippingDetails__country_operator
-  shippingDetails__region: Order_shippingDetails__region_operator
-  shippingDetails__city: Order_shippingDetails__city_operator
-  shippingDetails__addressLineOne: Order_shippingDetails__addressLineOne_operator
-  shippingDetails__addressLineTwo: Order_shippingDetails__addressLineTwo_operator
-  billingDetails__fullName: Order_billingDetails__fullName_operator
+  orderDetails__status: Order_orderDetails__status_operator
+  orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5165,28 +5153,21 @@ input Order_contactDetails__email_operator {
   all: [EmailAddress]
 }
 
-input Order_contactDetails__phoneNumber_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
+input Order_orderDetails__status_operator {
+  equals: Order_orderDetails__status_Input
+  not_equals: Order_orderDetails__status_Input
+  in: [Order_orderDetails__status_Input]
+  not_in: [Order_orderDetails__status_Input]
+  all: [Order_orderDetails__status_Input]
 }
 
-input Order_shippingDetails__fullName_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
+enum Order_orderDetails__status_Input {
+  pending
+  paid
+  completed
 }
 
-input Order_shippingDetails__company_operator {
+input Order_orderDetails__minecraftUsername_operator {
   equals: String
   not_equals: String
   like: String
@@ -5194,69 +5175,6 @@ input Order_shippingDetails__company_operator {
   in: [String]
   not_in: [String]
   all: [String]
-  exists: Boolean
-}
-
-input Order_shippingDetails__country_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Order_shippingDetails__region_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Order_shippingDetails__city_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Order_shippingDetails__addressLineOne_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Order_shippingDetails__addressLineTwo_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Order_billingDetails__fullName_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
 }
 
 input Order_items__product_operator {
@@ -5336,15 +5254,8 @@ input Order_where_and {
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
-  contactDetails__phoneNumber: Order_contactDetails__phoneNumber_operator
-  shippingDetails__fullName: Order_shippingDetails__fullName_operator
-  shippingDetails__company: Order_shippingDetails__company_operator
-  shippingDetails__country: Order_shippingDetails__country_operator
-  shippingDetails__region: Order_shippingDetails__region_operator
-  shippingDetails__city: Order_shippingDetails__city_operator
-  shippingDetails__addressLineOne: Order_shippingDetails__addressLineOne_operator
-  shippingDetails__addressLineTwo: Order_shippingDetails__addressLineTwo_operator
-  billingDetails__fullName: Order_billingDetails__fullName_operator
+  orderDetails__status: Order_orderDetails__status_operator
+  orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5361,15 +5272,8 @@ input Order_where_or {
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
-  contactDetails__phoneNumber: Order_contactDetails__phoneNumber_operator
-  shippingDetails__fullName: Order_shippingDetails__fullName_operator
-  shippingDetails__company: Order_shippingDetails__company_operator
-  shippingDetails__country: Order_shippingDetails__country_operator
-  shippingDetails__region: Order_shippingDetails__region_operator
-  shippingDetails__city: Order_shippingDetails__city_operator
-  shippingDetails__addressLineOne: Order_shippingDetails__addressLineOne_operator
-  shippingDetails__addressLineTwo: Order_shippingDetails__addressLineTwo_operator
-  billingDetails__fullName: Order_billingDetails__fullName_operator
+  orderDetails__status: Order_orderDetails__status_operator
+  orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
@@ -5394,8 +5298,7 @@ type OrdersDocAccessFields {
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   total: OrdersDocAccessFields_total
   contactDetails: OrdersDocAccessFields_contactDetails
-  shippingDetails: OrdersDocAccessFields_shippingDetails
-  billingDetails: OrdersDocAccessFields_billingDetails
+  orderDetails: OrdersDocAccessFields_orderDetails
   items: OrdersDocAccessFields_items
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
@@ -5496,7 +5399,6 @@ type OrdersDocAccessFields_contactDetails_Delete {
 
 type OrdersDocAccessFields_contactDetails_Fields {
   email: OrdersDocAccessFields_contactDetails_email
-  phoneNumber: OrdersDocAccessFields_contactDetails_phoneNumber
 }
 
 type OrdersDocAccessFields_contactDetails_email {
@@ -5522,272 +5424,78 @@ type OrdersDocAccessFields_contactDetails_email_Delete {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_contactDetails_phoneNumber {
-  create: OrdersDocAccessFields_contactDetails_phoneNumber_Create
-  read: OrdersDocAccessFields_contactDetails_phoneNumber_Read
-  update: OrdersDocAccessFields_contactDetails_phoneNumber_Update
-  delete: OrdersDocAccessFields_contactDetails_phoneNumber_Delete
+type OrdersDocAccessFields_orderDetails {
+  create: OrdersDocAccessFields_orderDetails_Create
+  read: OrdersDocAccessFields_orderDetails_Read
+  update: OrdersDocAccessFields_orderDetails_Update
+  delete: OrdersDocAccessFields_orderDetails_Delete
+  fields: OrdersDocAccessFields_orderDetails_Fields
 }
 
-type OrdersDocAccessFields_contactDetails_phoneNumber_Create {
+type OrdersDocAccessFields_orderDetails_Create {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_contactDetails_phoneNumber_Read {
+type OrdersDocAccessFields_orderDetails_Read {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_contactDetails_phoneNumber_Update {
+type OrdersDocAccessFields_orderDetails_Update {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_contactDetails_phoneNumber_Delete {
+type OrdersDocAccessFields_orderDetails_Delete {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails {
-  create: OrdersDocAccessFields_shippingDetails_Create
-  read: OrdersDocAccessFields_shippingDetails_Read
-  update: OrdersDocAccessFields_shippingDetails_Update
-  delete: OrdersDocAccessFields_shippingDetails_Delete
-  fields: OrdersDocAccessFields_shippingDetails_Fields
+type OrdersDocAccessFields_orderDetails_Fields {
+  status: OrdersDocAccessFields_orderDetails_status
+  minecraftUsername: OrdersDocAccessFields_orderDetails_minecraftUsername
 }
 
-type OrdersDocAccessFields_shippingDetails_Create {
+type OrdersDocAccessFields_orderDetails_status {
+  create: OrdersDocAccessFields_orderDetails_status_Create
+  read: OrdersDocAccessFields_orderDetails_status_Read
+  update: OrdersDocAccessFields_orderDetails_status_Update
+  delete: OrdersDocAccessFields_orderDetails_status_Delete
+}
+
+type OrdersDocAccessFields_orderDetails_status_Create {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_Read {
+type OrdersDocAccessFields_orderDetails_status_Read {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_Update {
+type OrdersDocAccessFields_orderDetails_status_Update {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_Delete {
+type OrdersDocAccessFields_orderDetails_status_Delete {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_Fields {
-  fullName: OrdersDocAccessFields_shippingDetails_fullName
-  company: OrdersDocAccessFields_shippingDetails_company
-  country: OrdersDocAccessFields_shippingDetails_country
-  region: OrdersDocAccessFields_shippingDetails_region
-  city: OrdersDocAccessFields_shippingDetails_city
-  addressLineOne: OrdersDocAccessFields_shippingDetails_addressLineOne
-  addressLineTwo: OrdersDocAccessFields_shippingDetails_addressLineTwo
+type OrdersDocAccessFields_orderDetails_minecraftUsername {
+  create: OrdersDocAccessFields_orderDetails_minecraftUsername_Create
+  read: OrdersDocAccessFields_orderDetails_minecraftUsername_Read
+  update: OrdersDocAccessFields_orderDetails_minecraftUsername_Update
+  delete: OrdersDocAccessFields_orderDetails_minecraftUsername_Delete
 }
 
-type OrdersDocAccessFields_shippingDetails_fullName {
-  create: OrdersDocAccessFields_shippingDetails_fullName_Create
-  read: OrdersDocAccessFields_shippingDetails_fullName_Read
-  update: OrdersDocAccessFields_shippingDetails_fullName_Update
-  delete: OrdersDocAccessFields_shippingDetails_fullName_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_fullName_Create {
+type OrdersDocAccessFields_orderDetails_minecraftUsername_Create {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_fullName_Read {
+type OrdersDocAccessFields_orderDetails_minecraftUsername_Read {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_fullName_Update {
+type OrdersDocAccessFields_orderDetails_minecraftUsername_Update {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_shippingDetails_fullName_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_company {
-  create: OrdersDocAccessFields_shippingDetails_company_Create
-  read: OrdersDocAccessFields_shippingDetails_company_Read
-  update: OrdersDocAccessFields_shippingDetails_company_Update
-  delete: OrdersDocAccessFields_shippingDetails_company_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_company_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_company_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_company_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_company_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_country {
-  create: OrdersDocAccessFields_shippingDetails_country_Create
-  read: OrdersDocAccessFields_shippingDetails_country_Read
-  update: OrdersDocAccessFields_shippingDetails_country_Update
-  delete: OrdersDocAccessFields_shippingDetails_country_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_country_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_country_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_country_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_country_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_region {
-  create: OrdersDocAccessFields_shippingDetails_region_Create
-  read: OrdersDocAccessFields_shippingDetails_region_Read
-  update: OrdersDocAccessFields_shippingDetails_region_Update
-  delete: OrdersDocAccessFields_shippingDetails_region_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_region_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_region_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_region_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_region_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_city {
-  create: OrdersDocAccessFields_shippingDetails_city_Create
-  read: OrdersDocAccessFields_shippingDetails_city_Read
-  update: OrdersDocAccessFields_shippingDetails_city_Update
-  delete: OrdersDocAccessFields_shippingDetails_city_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_city_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_city_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_city_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_city_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineOne {
-  create: OrdersDocAccessFields_shippingDetails_addressLineOne_Create
-  read: OrdersDocAccessFields_shippingDetails_addressLineOne_Read
-  update: OrdersDocAccessFields_shippingDetails_addressLineOne_Update
-  delete: OrdersDocAccessFields_shippingDetails_addressLineOne_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineOne_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineOne_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineOne_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineOne_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineTwo {
-  create: OrdersDocAccessFields_shippingDetails_addressLineTwo_Create
-  read: OrdersDocAccessFields_shippingDetails_addressLineTwo_Read
-  update: OrdersDocAccessFields_shippingDetails_addressLineTwo_Update
-  delete: OrdersDocAccessFields_shippingDetails_addressLineTwo_Delete
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineTwo_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineTwo_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineTwo_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_shippingDetails_addressLineTwo_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails {
-  create: OrdersDocAccessFields_billingDetails_Create
-  read: OrdersDocAccessFields_billingDetails_Read
-  update: OrdersDocAccessFields_billingDetails_Update
-  delete: OrdersDocAccessFields_billingDetails_Delete
-  fields: OrdersDocAccessFields_billingDetails_Fields
-}
-
-type OrdersDocAccessFields_billingDetails_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_Fields {
-  fullName: OrdersDocAccessFields_billingDetails_fullName
-}
-
-type OrdersDocAccessFields_billingDetails_fullName {
-  create: OrdersDocAccessFields_billingDetails_fullName_Create
-  read: OrdersDocAccessFields_billingDetails_fullName_Read
-  update: OrdersDocAccessFields_billingDetails_fullName_Update
-  delete: OrdersDocAccessFields_billingDetails_fullName_Delete
-}
-
-type OrdersDocAccessFields_billingDetails_fullName_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_fullName_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_fullName_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_billingDetails_fullName_Delete {
+type OrdersDocAccessFields_orderDetails_minecraftUsername_Delete {
   permission: Boolean!
 }
 
@@ -10529,8 +10237,7 @@ type OrdersFields {
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   total: OrdersFields_total
   contactDetails: OrdersFields_contactDetails
-  shippingDetails: OrdersFields_shippingDetails
-  billingDetails: OrdersFields_billingDetails
+  orderDetails: OrdersFields_orderDetails
   items: OrdersFields_items
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
@@ -10631,7 +10338,6 @@ type OrdersFields_contactDetails_Delete {
 
 type OrdersFields_contactDetails_Fields {
   email: OrdersFields_contactDetails_email
-  phoneNumber: OrdersFields_contactDetails_phoneNumber
 }
 
 type OrdersFields_contactDetails_email {
@@ -10657,272 +10363,78 @@ type OrdersFields_contactDetails_email_Delete {
   permission: Boolean!
 }
 
-type OrdersFields_contactDetails_phoneNumber {
-  create: OrdersFields_contactDetails_phoneNumber_Create
-  read: OrdersFields_contactDetails_phoneNumber_Read
-  update: OrdersFields_contactDetails_phoneNumber_Update
-  delete: OrdersFields_contactDetails_phoneNumber_Delete
+type OrdersFields_orderDetails {
+  create: OrdersFields_orderDetails_Create
+  read: OrdersFields_orderDetails_Read
+  update: OrdersFields_orderDetails_Update
+  delete: OrdersFields_orderDetails_Delete
+  fields: OrdersFields_orderDetails_Fields
 }
 
-type OrdersFields_contactDetails_phoneNumber_Create {
+type OrdersFields_orderDetails_Create {
   permission: Boolean!
 }
 
-type OrdersFields_contactDetails_phoneNumber_Read {
+type OrdersFields_orderDetails_Read {
   permission: Boolean!
 }
 
-type OrdersFields_contactDetails_phoneNumber_Update {
+type OrdersFields_orderDetails_Update {
   permission: Boolean!
 }
 
-type OrdersFields_contactDetails_phoneNumber_Delete {
+type OrdersFields_orderDetails_Delete {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails {
-  create: OrdersFields_shippingDetails_Create
-  read: OrdersFields_shippingDetails_Read
-  update: OrdersFields_shippingDetails_Update
-  delete: OrdersFields_shippingDetails_Delete
-  fields: OrdersFields_shippingDetails_Fields
+type OrdersFields_orderDetails_Fields {
+  status: OrdersFields_orderDetails_status
+  minecraftUsername: OrdersFields_orderDetails_minecraftUsername
 }
 
-type OrdersFields_shippingDetails_Create {
+type OrdersFields_orderDetails_status {
+  create: OrdersFields_orderDetails_status_Create
+  read: OrdersFields_orderDetails_status_Read
+  update: OrdersFields_orderDetails_status_Update
+  delete: OrdersFields_orderDetails_status_Delete
+}
+
+type OrdersFields_orderDetails_status_Create {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_Read {
+type OrdersFields_orderDetails_status_Read {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_Update {
+type OrdersFields_orderDetails_status_Update {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_Delete {
+type OrdersFields_orderDetails_status_Delete {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_Fields {
-  fullName: OrdersFields_shippingDetails_fullName
-  company: OrdersFields_shippingDetails_company
-  country: OrdersFields_shippingDetails_country
-  region: OrdersFields_shippingDetails_region
-  city: OrdersFields_shippingDetails_city
-  addressLineOne: OrdersFields_shippingDetails_addressLineOne
-  addressLineTwo: OrdersFields_shippingDetails_addressLineTwo
+type OrdersFields_orderDetails_minecraftUsername {
+  create: OrdersFields_orderDetails_minecraftUsername_Create
+  read: OrdersFields_orderDetails_minecraftUsername_Read
+  update: OrdersFields_orderDetails_minecraftUsername_Update
+  delete: OrdersFields_orderDetails_minecraftUsername_Delete
 }
 
-type OrdersFields_shippingDetails_fullName {
-  create: OrdersFields_shippingDetails_fullName_Create
-  read: OrdersFields_shippingDetails_fullName_Read
-  update: OrdersFields_shippingDetails_fullName_Update
-  delete: OrdersFields_shippingDetails_fullName_Delete
-}
-
-type OrdersFields_shippingDetails_fullName_Create {
+type OrdersFields_orderDetails_minecraftUsername_Create {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_fullName_Read {
+type OrdersFields_orderDetails_minecraftUsername_Read {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_fullName_Update {
+type OrdersFields_orderDetails_minecraftUsername_Update {
   permission: Boolean!
 }
 
-type OrdersFields_shippingDetails_fullName_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_company {
-  create: OrdersFields_shippingDetails_company_Create
-  read: OrdersFields_shippingDetails_company_Read
-  update: OrdersFields_shippingDetails_company_Update
-  delete: OrdersFields_shippingDetails_company_Delete
-}
-
-type OrdersFields_shippingDetails_company_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_company_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_company_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_company_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_country {
-  create: OrdersFields_shippingDetails_country_Create
-  read: OrdersFields_shippingDetails_country_Read
-  update: OrdersFields_shippingDetails_country_Update
-  delete: OrdersFields_shippingDetails_country_Delete
-}
-
-type OrdersFields_shippingDetails_country_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_country_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_country_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_country_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_region {
-  create: OrdersFields_shippingDetails_region_Create
-  read: OrdersFields_shippingDetails_region_Read
-  update: OrdersFields_shippingDetails_region_Update
-  delete: OrdersFields_shippingDetails_region_Delete
-}
-
-type OrdersFields_shippingDetails_region_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_region_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_region_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_region_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_city {
-  create: OrdersFields_shippingDetails_city_Create
-  read: OrdersFields_shippingDetails_city_Read
-  update: OrdersFields_shippingDetails_city_Update
-  delete: OrdersFields_shippingDetails_city_Delete
-}
-
-type OrdersFields_shippingDetails_city_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_city_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_city_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_city_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineOne {
-  create: OrdersFields_shippingDetails_addressLineOne_Create
-  read: OrdersFields_shippingDetails_addressLineOne_Read
-  update: OrdersFields_shippingDetails_addressLineOne_Update
-  delete: OrdersFields_shippingDetails_addressLineOne_Delete
-}
-
-type OrdersFields_shippingDetails_addressLineOne_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineOne_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineOne_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineOne_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineTwo {
-  create: OrdersFields_shippingDetails_addressLineTwo_Create
-  read: OrdersFields_shippingDetails_addressLineTwo_Read
-  update: OrdersFields_shippingDetails_addressLineTwo_Update
-  delete: OrdersFields_shippingDetails_addressLineTwo_Delete
-}
-
-type OrdersFields_shippingDetails_addressLineTwo_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineTwo_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineTwo_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_shippingDetails_addressLineTwo_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails {
-  create: OrdersFields_billingDetails_Create
-  read: OrdersFields_billingDetails_Read
-  update: OrdersFields_billingDetails_Update
-  delete: OrdersFields_billingDetails_Delete
-  fields: OrdersFields_billingDetails_Fields
-}
-
-type OrdersFields_billingDetails_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_Fields {
-  fullName: OrdersFields_billingDetails_fullName
-}
-
-type OrdersFields_billingDetails_fullName {
-  create: OrdersFields_billingDetails_fullName_Create
-  read: OrdersFields_billingDetails_fullName_Read
-  update: OrdersFields_billingDetails_fullName_Update
-  delete: OrdersFields_billingDetails_fullName_Delete
-}
-
-type OrdersFields_billingDetails_fullName_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_fullName_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_fullName_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_billingDetails_fullName_Delete {
+type OrdersFields_orderDetails_minecraftUsername_Delete {
   permission: Boolean!
 }
 
@@ -13347,8 +12859,7 @@ input mutationOrderInput {
   stripePaymentIntentID: String
   total: Float!
   contactDetails: mutationOrder_ContactDetailsInput!
-  shippingDetails: mutationOrder_ShippingDetailsInput!
-  billingDetails: mutationOrder_BillingDetailsInput
+  orderDetails: mutationOrder_OrderDetailsInput!
   items: [mutationOrder_ItemsInput]
   updatedAt: String
   createdAt: String
@@ -13356,21 +12867,17 @@ input mutationOrderInput {
 
 input mutationOrder_ContactDetailsInput {
   email: String!
-  phoneNumber: String
 }
 
-input mutationOrder_ShippingDetailsInput {
-  fullName: String!
-  company: String
-  country: String!
-  region: String!
-  city: String!
-  addressLineOne: String!
-  addressLineTwo: String
+input mutationOrder_OrderDetailsInput {
+  status: Order_OrderDetails_status_MutationInput!
+  minecraftUsername: String!
 }
 
-input mutationOrder_BillingDetailsInput {
-  fullName: String
+enum Order_OrderDetails_status_MutationInput {
+  pending
+  paid
+  completed
 }
 
 input mutationOrder_ItemsInput {
@@ -13385,8 +12892,7 @@ input mutationOrderUpdateInput {
   stripePaymentIntentID: String
   total: Float
   contactDetails: mutationOrderUpdate_ContactDetailsInput!
-  shippingDetails: mutationOrderUpdate_ShippingDetailsInput!
-  billingDetails: mutationOrderUpdate_BillingDetailsInput
+  orderDetails: mutationOrderUpdate_OrderDetailsInput!
   items: [mutationOrderUpdate_ItemsInput]
   updatedAt: String
   createdAt: String
@@ -13394,21 +12900,17 @@ input mutationOrderUpdateInput {
 
 input mutationOrderUpdate_ContactDetailsInput {
   email: String!
-  phoneNumber: String
 }
 
-input mutationOrderUpdate_ShippingDetailsInput {
-  fullName: String!
-  company: String
-  country: String!
-  region: String!
-  city: String!
-  addressLineOne: String!
-  addressLineTwo: String
+input mutationOrderUpdate_OrderDetailsInput {
+  status: OrderUpdate_OrderDetails_status_MutationInput!
+  minecraftUsername: String!
 }
 
-input mutationOrderUpdate_BillingDetailsInput {
-  fullName: String
+enum OrderUpdate_OrderDetails_status_MutationInput {
+  pending
+  paid
+  completed
 }
 
 input mutationOrderUpdate_ItemsInput {

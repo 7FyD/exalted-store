@@ -14,9 +14,7 @@ export async function createCheckoutSession(
   const origin: string = headers().get("origin") as string;
   const line_items = cartItems.map(item => ({
     price:
-      typeof item.product !== "string"
-        ? priceIdFromJSON(item.product.priceJSON, item.size)
-        : item.product,
+      typeof item.product !== "string" ? priceIdFromJSON(item.product.priceJSON) : item.product,
     quantity: item.quantity,
   }));
   const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create({

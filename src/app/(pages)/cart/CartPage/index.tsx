@@ -11,6 +11,7 @@ import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
 import AccountModal from "../AccountModal";
 import CartItem from "../CartItem";
+import { createOrder } from "./test";
 
 import classes from "./index.module.scss";
 
@@ -26,8 +27,8 @@ export const CartPage: React.FC<{
   const checkout = React.useCallback(async () => {
     if (user) {
       const response = await createCheckoutSession(cart.items, user?.email);
-
-      if (response.url) {
+      if (response.url && response.orderId) {
+        createOrder(cart.items, user.email, account.name);
         window.location.href = response.url;
       }
     } else {

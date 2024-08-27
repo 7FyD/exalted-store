@@ -59,3 +59,18 @@ export const unitAmountFromJSON = (jsonData: string): number | null => {
     return null;
   }
 };
+
+export const priceNumberFromJSON = (priceJSON: string, quantity: number): number => {
+  let total = 0;
+  if (priceJSON) {
+    try {
+      const parsed = JSON.parse(priceJSON)?.data[0];
+      if (parsed?.unit_amount) {
+        total = parsed.unit_amount * quantity;
+      }
+    } catch (e: unknown) {
+      console.error("Cannot parse priceJSON"); // eslint-disable-line no-console
+    }
+  }
+  return total;
+};

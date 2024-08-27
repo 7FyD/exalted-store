@@ -58,62 +58,26 @@ export const Orders: CollectionConfig = {
           type: "email",
           required: true,
         },
-        {
-          name: "phoneNumber",
-          type: "text",
-          required: false,
-        },
       ],
     },
     {
-      name: "shippingDetails",
+      name: "orderDetails",
       type: "group",
       fields: [
         {
-          name: "fullName",
+          name: "status",
+          type: "select",
+          required: true,
+          options: [
+            { label: "Pending", value: "pending" },
+            { label: "Paid", value: "paid" },
+            { label: "Completed", value: "completed" },
+          ],
+        },
+        {
+          name: "minecraftUsername",
           type: "text",
           required: true,
-        },
-        {
-          name: "company",
-          type: "text",
-          required: false,
-        },
-        {
-          name: "country",
-          type: "text",
-          required: true,
-        },
-        {
-          name: "region",
-          type: "text",
-          required: true,
-        },
-        {
-          name: "city",
-          type: "text",
-          required: true,
-        },
-        {
-          name: "addressLineOne",
-          type: "text",
-          required: true,
-        },
-        {
-          name: "addressLineTwo",
-          type: "text",
-          required: false,
-        },
-      ],
-    },
-    {
-      name: "billingDetails",
-      type: "group",
-      fields: [
-        {
-          name: "fullName",
-          type: "text",
-          required: false,
         },
       ],
     },
