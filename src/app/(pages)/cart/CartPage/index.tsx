@@ -1,7 +1,6 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
-import Image from "next/image";
+import React, { Fragment } from "react";
 import Link from "next/link";
 
 import { createCheckoutSession } from "../../../../payload/endpoints/create-checkout-session";
@@ -12,20 +11,18 @@ import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
 import AccountModal from "../AccountModal";
 import CartItem from "../CartItem";
-import { CheckAccount } from "../CheckAccount";
 
 import classes from "./index.module.scss";
 
 export const CartPage: React.FC<{
   settings: Settings;
   page: Page;
+  account: any;
 }> = props => {
-  const { settings } = props;
+  const { settings, account } = props;
   const { productsPage } = settings || {};
-
   const { user } = useAuth();
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart, clearCart } = useCart();
-  const [account, setAccount] = useState<string | null>(null);
   const checkout = React.useCallback(async () => {
     if (user) {
       const response = await createCheckoutSession(cart.items, user?.email);
@@ -37,6 +34,7 @@ export const CartPage: React.FC<{
       console.error("Failed to create checkout session.");
     }
   }, [cart.items, user?.email]);
+
   return (
     <Fragment>
       <br />
@@ -51,7 +49,6 @@ export const CartPage: React.FC<{
               Your cart is empty.
               {!user && (
                 <Fragment>
-                  {" "}
                   <Link href={`/login?redirect=%2Fcart`}>Log in</Link>
                   {` to view a saved cart.`}
                 </Fragment>
@@ -67,15 +64,6 @@ export const CartPage: React.FC<{
                     label="Clear cart"
                     el="button"
                     onClick={clearCart}
-                  />
-                  {/* TODO: add button to add username to checkout that verifies the 
-                  account via mojang api and gets the skin fron mineskin.eu */}
-                  <Image
-                    src={"https://mineskin.eu/helm/ZEW69/100.png"}
-                    alt="logo"
-                    width={100}
-                    height={100}
-                    onClick={() => CheckAccount("ZEW69")}
                   />
                 </div>
                 {/* CART LIST HEADER */}
@@ -150,24 +138,17 @@ export const CartPage: React.FC<{
                 )}
                 {user && (
                   <Fragment>
-                    {account ? (
-                      <Fragment>
-                        <Button
-                          className={classes.checkoutButton}
-                          href="/checkout"
-                          label="Checkout"
-                          appearance="primary"
-                        />
+                    <Fragment>
+                      {account && (
                         <Button
                           className={classes.checkoutButton}
                           onClick={checkout}
-                          label="Stripe checkout"
-                          appearance="secondary"
+                          label="checkout"
+                          appearance="primary"
                         />
-                      </Fragment>
-                    ) : (
-                      <AccountModal />
-                    )}
+                      )}
+                      <AccountModal account={account} />
+                    </Fragment>
                   </Fragment>
                 )}
               </div>

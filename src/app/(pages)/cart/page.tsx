@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { Page, Settings } from "../../../payload/payload-types";
@@ -18,6 +19,17 @@ import classes from "./index.module.scss";
 export const dynamic = "force-dynamic";
 
 export default async function Cart() {
+  const account_cookie = cookies().get("minecraft_account");
+  let account = null;
+
+  if (account_cookie && account_cookie.value) {
+    try {
+      account = JSON.parse(account_cookie.value);
+    } catch (error) {
+      console.error("Error parsing account cookie:", error);
+    }
+  }
+
   let page: Page | null = null;
 
   try {
@@ -57,7 +69,7 @@ export default async function Cart() {
   return (
     <div className={classes.container}>
       <Gutter>
-        <CartPage settings={settings} page={page} />
+        <CartPage settings={settings} page={page} account={account} />
       </Gutter>
       <Blocks blocks={page?.layout} disableBottomPadding />
     </div>

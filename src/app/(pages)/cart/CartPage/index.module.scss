@@ -1,5 +1,12 @@
 @import '../../../_css/common';
 
+.label {
+  @extend %label;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
 .cart {
   margin: 30px 0;
 }
