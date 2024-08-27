@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 
+import type { Account } from "../AccountModal";
+
 type MojangResponse =
   | {
       id: string;
@@ -14,7 +16,7 @@ type MojangResponse =
 
 export const addUsername = async (
   username: string,
-): Promise<{ success: string } | { error: string }> => {
+): Promise<{ success: string; account: Account } | { error: string }> => {
   const checkUsername = (): string | null => {
     const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
     return usernameRegex.test(username) ? username : null;
@@ -40,7 +42,12 @@ export const addUsername = async (
       maxAge: 60 * 60 * 24, // 1 day
     });
 
-    return { success: "Authenticated." };
+    const account: Account = {
+      id: data.id,
+      name: data.name,
+    };
+
+    return { success: "Authenticated.", account };
   } catch (error: unknown) {
     console.error("Error fetching data:", error);
     return { error: "Internal server error. Please try again later." };

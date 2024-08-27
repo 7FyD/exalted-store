@@ -9,7 +9,7 @@ import { Button } from "../../../_components/Button";
 import { LoadingShimmer } from "../../../_components/LoadingShimmer";
 import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
-import AccountModal from "../AccountModal";
+import AccountModal, { Account } from "../AccountModal";
 import CartItem from "../CartItem";
 import { createOrder } from "./test";
 
@@ -18,14 +18,15 @@ import classes from "./index.module.scss";
 export const CartPage: React.FC<{
   settings: Settings;
   page: Page;
-  account: any;
+  account: Account | null;
 }> = props => {
-  const { settings, account } = props;
+  const { settings, account: initialAccount } = props;
+  const [account, setAccount] = useState<Account | null>(initialAccount);
   const { productsPage } = settings || {};
   const { user } = useAuth();
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart, clearCart } = useCart();
   const checkout = React.useCallback(async () => {
-    if (user) {
+    if (user && account) {
       const response = await createCheckoutSession(cart.items, user?.email);
       if (response.url && response.orderId) {
         createOrder(cart.items, user.email, account.name);
@@ -33,8 +34,9 @@ export const CartPage: React.FC<{
       }
     } else {
       console.error("Failed to create checkout session.");
-    }
-  }, [cart.items, user?.email]);
+  const handleAccountUpdate = (newAccount: Account | null) => {
+    setAccount(newAccount);
+  };
 
   return (
     <Fragment>
@@ -148,7 +150,7 @@ export const CartPage: React.FC<{
                           appearance="primary"
                         />
                       )}
-                      <AccountModal account={account} />
+                      <AccountModal account={account} onAccountUpdate={handleAccountUpdate} />
                     </Fragment>
                   </Fragment>
                 )}

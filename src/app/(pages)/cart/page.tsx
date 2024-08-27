@@ -10,6 +10,7 @@ import { fetchSettings } from "../../_api/fetchGlobals";
 import { Blocks } from "../../_components/Blocks";
 import { Gutter } from "../../_components/Gutter";
 import { generateMeta } from "../../_utilities/generateMeta";
+import { Account } from "./AccountModal";
 import { CartPage } from "./CartPage";
 
 import classes from "./index.module.scss";
@@ -20,7 +21,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Cart() {
   const account_cookie = cookies().get("minecraft_account");
-  let account = null;
+  let account: Account | null = null;
 
   if (account_cookie && account_cookie.value) {
     try {

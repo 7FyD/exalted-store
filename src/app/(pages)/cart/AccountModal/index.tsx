@@ -19,16 +19,17 @@ import { addUsername, removeUsername } from "../HandleAccount";
 
 import classes from "./index.module.scss";
 
-interface Account {
+export interface Account {
   name: string;
   id: string;
 }
 
 interface AccountModalProps {
   account: Account | null;
+  onAccountUpdate: (account: Account | null) => void;
 }
 
-const AccountModal: React.FC<AccountModalProps> = ({ account }) => {
+const AccountModal: React.FC<AccountModalProps> = ({ account, onAccountUpdate }) => {
   const [username, setUsername] = useState(account?.name || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string>("");
@@ -52,6 +53,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ account }) => {
     } else {
       setError("");
       setSuccess(response.success);
+      onAccountUpdate(response.account);
       setTimeout(() => {
         setIsOpen(false);
       }, 200);
@@ -68,6 +70,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ account }) => {
       setError("");
       setSuccess(response.success);
       setUsername("");
+      onAccountUpdate(null);
     }
   };
 
