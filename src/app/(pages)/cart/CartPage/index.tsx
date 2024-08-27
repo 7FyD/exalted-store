@@ -1,17 +1,19 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { MoonLoader } from "react-spinners";
 import Link from "next/link";
 
+import { createOrder } from "../../../../app/_lib/create-pending-order";
 import { createCheckoutSession } from "../../../../payload/endpoints/create-checkout-session";
 import { Page, Settings } from "../../../../payload/payload-types";
-import { Button } from "../../../_components/Button";
 import { LoadingShimmer } from "../../../_components/LoadingShimmer";
+import { Button } from "../../../_components/ui/button";
+import { useToast } from "../../../_components/ui/use-toast";
 import { useAuth } from "../../../_providers/Auth";
 import { useCart } from "../../../_providers/Cart";
 import AccountModal, { Account } from "../AccountModal";
 import CartItem from "../CartItem";
-import { createOrder } from "./test";
 
 import classes from "./index.module.scss";
 
@@ -23,17 +25,40 @@ export const CartPage: React.FC<{
   const { settings, account: initialAccount } = props;
   const [account, setAccount] = useState<Account | null>(initialAccount);
   const { productsPage } = settings || {};
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
+  const { toast } = useToast();
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart, clearCart } = useCart();
+
   const checkout = React.useCallback(async () => {
     if (user && account) {
+      setIsLoading(true);
       const response = await createCheckoutSession(cart.items, user?.email);
       if (response.url && response.orderId) {
-        createOrder(cart.items, user.email, account.name);
-        window.location.href = response.url;
+        const newOrder = await createOrder(cart.items, user.email, account.name, response.orderId);
+        if (newOrder.success) {
+          window.location.href = response.url;
+        } else {
+          toast({
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+            variant: "destructive",
+          });
+        }
       }
+      setIsLoading(false);
     } else {
       console.error("Failed to create checkout session.");
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart.items, user?.email, account]);
+
   const handleAccountUpdate = (newAccount: Account | null) => {
     setAccount(newAccount);
   };
@@ -61,13 +86,9 @@ export const CartPage: React.FC<{
             <div className={classes.cartWrapper}>
               <div>
                 <div className="flex flex-row gap-4 items-center">
-                  <Button
-                    className="mb-4"
-                    appearance="primary"
-                    label="Clear cart"
-                    el="button"
-                    onClick={clearCart}
-                  />
+                  <Button className="mb-4" onClick={clearCart}>
+                    Clear cart
+                  </Button>
                 </div>
                 {/* CART LIST HEADER */}
                 <div className={classes.header}>
@@ -132,23 +153,22 @@ export const CartPage: React.FC<{
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>
                 </div>
                 {!user && (
-                  <Button
-                    className={classes.checkoutButton}
-                    href="/login?redirect=cart"
-                    label="Login to checkout"
-                    appearance="primary"
-                  />
+                  <Button className={classes.checkoutButton} variant="default" asChild>
+                    <Link href="/login?redirect=cart">Login to checkout</Link>
+                  </Button>
                 )}
                 {user && (
                   <Fragment>
                     <Fragment>
                       {account && (
                         <Button
-                          className={classes.checkoutButton}
+                          className={[classes.checkoutButton, classes.label].join(" ")}
                           onClick={checkout}
-                          label="checkout"
-                          appearance="primary"
-                        />
+                          variant="default"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? <MoonLoader size={20} color="#ffffff" /> : "Checkout"}
+                        </Button>
                       )}
                       <AccountModal account={account} onAccountUpdate={handleAccountUpdate} />
                     </Fragment>

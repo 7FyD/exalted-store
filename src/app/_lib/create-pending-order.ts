@@ -2,9 +2,9 @@
 
 import payload from "payload";
 
-import type { Product, User } from "../../../../payload/payload-types";
-import type { CartItem } from "../../../_providers/Cart/reducer";
-import { priceNumberFromJSON } from "../../../_utilities/priceUtilities";
+import type { Product, User } from "../../payload/payload-types";
+import type { CartItem } from "../_providers/Cart/reducer";
+import { priceNumberFromJSON } from "../_utilities/priceUtilities";
 
 const logs = true;
 
@@ -12,7 +12,8 @@ export const createOrder = async (
   cartItems: CartItem[],
   userEmail: string,
   username: string,
-): Promise<string> => {
+  orderId: string,
+): Promise<{ success: boolean }> => {
   if (cartItems.length < 1 || !userEmail || !username) {
     throw new Error("Invalid order data.");
   }
@@ -77,6 +78,7 @@ export const createOrder = async (
         collection: "orders",
         data: {
           ...orderData,
+          id: orderId,
           items: orderData.items.map(item => ({
             product: item.product.id,
             quantity: item.quantity,
@@ -86,16 +88,15 @@ export const createOrder = async (
       });
 
       if (logs) payload.logger.info(`✅ Successfully created order with ID: ${createdOrder.id}`);
-      // TODO: add success/error frontend handling
-      return "success";
+      return { success: true };
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Unknown error";
       payload.logger.error(`Error creating order for user ${userEmail} - ${message}`);
-      throw error;
+      return { success: false };
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
     payload.logger.error(`General error creating order for user ${userEmail} - ${message}`);
-    throw error;
+    return { success: false };
   }
 };
