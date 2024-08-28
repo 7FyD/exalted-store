@@ -22,7 +22,10 @@ const RankCard: React.FC<{ product: Product; index: number }> = ({ product, inde
           height={190}
         />
         <h4 className="text-blue-300 text-lg font-semibold">{product.title}</h4>
-        <p className="text-sm">{product.additionalInformation[0]?.message}</p>
+        <p className="text-sm">
+          Receive the {product.title} Rank on the Exalted-Kingdom Minecraft Server and
+          Exalted-Kingdom Discord.
+        </p>
         <p className="text-destructive line-through">
           $15{/* {(parseFloat(product.priceJSON) * 1.28).toFixed(2)} */}
         </p>

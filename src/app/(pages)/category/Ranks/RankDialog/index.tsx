@@ -16,25 +16,48 @@ interface RankDialogProps {
   product: Product;
 }
 
+// const benefits = [
+//   {
+//     title: "benefit 1",
+//     description: "benefit 1 description",
+//   },
+//   {
+//     title: "benefit 2",
+//     description: "benefit 2 description",
+//   },
+//   {
+//     title: "benefit 3",
+//     description: "benefit 3 description",
+//   },
+//   {
+//     title: "benefit 4",
+//     description: "benefit 4 description",
+//   },
+//   {
+//     title: "benefit 5",
+//     description: "benefit 5 description",
+//   },
+//   {
+//     title: "benefit 6",
+//     description: "benefit 6 description",
+//   },
+// ];
+
 const RankDialog: React.FC<RankDialogProps> = ({ isOpen, onClose, product }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="rounded-md sm:max-w-[425px] md:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>{product.title} rank benefits</DialogTitle>
-          <DialogDescription>{product.additionalInformation[0]?.message}</DialogDescription>
+          <DialogDescription>{product.information}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          <p>benefit 1</p>
-          <p>benefit 2</p>
-          <p>benefit 3</p>
-          <p>benefit 4</p>
-          <p>benefit 5</p>
-          <p>benefit 6</p>
-          <p>benefit 7</p>
-          <p>benefit 8</p>
-          <p>benefit 9</p>
-          <p>benefit 10</p>
+          {product.benefits.map((benefit, index) => (
+            <div className={index % 2 === 0 ? "bg-accent" : ""} key={index}>
+              <h3 className="text-lg font-semibold">{benefit.title}</h3>
+              <p className="text-sm text-muted-foreground">{benefit.description}</p>
+            </div>
+          ))}
         </div>
         <DialogFooter className="flex !flex-col gap-4 items-center justify-center">
           <AddToCartButton className="mx-auto" product={product} />

@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 
-import { AdditionalInformation } from "../../../payload/payload-types";
 import AccordionItem from "./AccordionItem";
 
 import classes from "./index.module.scss";
 
 interface AccordionProps {
-  data: AdditionalInformation;
+  data: {
+    title: string;
+    message: string;
+  }[];
 }
 
 const Accordion: React.FC<AccordionProps> = ({ data }) => {

@@ -47,15 +47,20 @@ const Products: CollectionConfig = {
       required: true,
     },
     {
-      name: "additionalInformation", // required
+      name: "information",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "benefits", // required
       type: "array", // required
-      label: "Additional information",
+      label: "Benefits",
       minRows: 1,
       maxRows: 4,
-      interfaceName: "AdditionalInformation",
+      interfaceName: "Benefits",
       labels: {
-        singular: "Information entry",
-        plural: "Information entries",
+        singular: "Benefit entry",
+        plural: "Benefit entries",
       },
       fields: [
         {
@@ -64,7 +69,7 @@ const Products: CollectionConfig = {
           required: true,
         },
         {
-          name: "message",
+          name: "description",
           type: "text",
           required: true,
         },

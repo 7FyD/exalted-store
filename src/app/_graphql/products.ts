@@ -7,10 +7,6 @@ export const PRODUCTS = `
       docs {
         title
         slug
-        additionalInformation {
-          title
-          message
-        }
         meta { 
           title
           image {
@@ -34,10 +30,6 @@ export const PRODUCT = `
       docs {
         id
         title
-        additionalInformation {
-          title
-          message
-        }
         stripeProductID
         ${PRODUCT_CATEGORIES}
         layout {

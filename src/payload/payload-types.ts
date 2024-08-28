@@ -6,10 +6,10 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
-export type AdditionalInformation =
+export type Benefits =
   | {
       title: string;
-      message: string;
+      description: string;
       id?: string | null;
     }[]
   | null;
@@ -202,7 +202,8 @@ export interface Category {
 export interface Product {
   id: string;
   title: string;
-  additionalInformation?: AdditionalInformation;
+  information: string;
+  benefits?: Benefits;
   publishedOn?: string | null;
   layout: (
     | {

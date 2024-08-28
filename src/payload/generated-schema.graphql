@@ -1271,7 +1271,8 @@ union Archive_SelectedDocs = Product
 type Product {
   id: String
   title: String
-  additionalInformation: [AdditionalInformation!]
+  information: String
+  benefits: [Benefits!]
   publishedOn: DateTime
   layout: [Product_Layout!]!
   stripeProductID: String
@@ -1288,9 +1289,9 @@ type Product {
   _status: Product__status
 }
 
-type AdditionalInformation {
+type Benefits {
   title: String
-  message: String
+  description: String
   id: String
 }
 
@@ -3609,9 +3610,10 @@ type Products {
 
 input Product_where {
   title: Product_title_operator
-  additionalInformation__title: Product_additionalInformation__title_operator
-  additionalInformation__message: Product_additionalInformation__message_operator
-  additionalInformation__id: Product_additionalInformation__id_operator
+  information: Product_information_operator
+  benefits__title: Product_benefits__title_operator
+  benefits__description: Product_benefits__description_operator
+  benefits__id: Product_benefits__id_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3641,7 +3643,7 @@ input Product_title_operator {
   all: [String]
 }
 
-input Product_additionalInformation__title_operator {
+input Product_information_operator {
   equals: String
   not_equals: String
   like: String
@@ -3651,7 +3653,7 @@ input Product_additionalInformation__title_operator {
   all: [String]
 }
 
-input Product_additionalInformation__message_operator {
+input Product_benefits__title_operator {
   equals: String
   not_equals: String
   like: String
@@ -3661,7 +3663,17 @@ input Product_additionalInformation__message_operator {
   all: [String]
 }
 
-input Product_additionalInformation__id_operator {
+input Product_benefits__description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Product_benefits__id_operator {
   equals: String
   not_equals: String
   like: String
@@ -3817,9 +3829,10 @@ input Product_id_operator {
 
 input Product_where_and {
   title: Product_title_operator
-  additionalInformation__title: Product_additionalInformation__title_operator
-  additionalInformation__message: Product_additionalInformation__message_operator
-  additionalInformation__id: Product_additionalInformation__id_operator
+  information: Product_information_operator
+  benefits__title: Product_benefits__title_operator
+  benefits__description: Product_benefits__description_operator
+  benefits__id: Product_benefits__id_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3841,9 +3854,10 @@ input Product_where_and {
 
 input Product_where_or {
   title: Product_title_operator
-  additionalInformation__title: Product_additionalInformation__title_operator
-  additionalInformation__message: Product_additionalInformation__message_operator
-  additionalInformation__id: Product_additionalInformation__id_operator
+  information: Product_information_operator
+  benefits__title: Product_benefits__title_operator
+  benefits__description: Product_benefits__description_operator
+  benefits__id: Product_benefits__id_operator
   publishedOn: Product_publishedOn_operator
   stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
@@ -3874,7 +3888,8 @@ type productsDocAccess {
 
 type ProductsDocAccessFields {
   title: ProductsDocAccessFields_title
-  additionalInformation: ProductsDocAccessFields_additionalInformation
+  information: ProductsDocAccessFields_information
+  benefits: ProductsDocAccessFields_benefits
   publishedOn: ProductsDocAccessFields_publishedOn
   layout: ProductsDocAccessFields_layout
   stripeProductID: ProductsDocAccessFields_stripeProductID
@@ -3914,102 +3929,125 @@ type ProductsDocAccessFields_title_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation {
-  create: ProductsDocAccessFields_additionalInformation_Create
-  read: ProductsDocAccessFields_additionalInformation_Read
-  update: ProductsDocAccessFields_additionalInformation_Update
-  delete: ProductsDocAccessFields_additionalInformation_Delete
-  fields: ProductsDocAccessFields_additionalInformation_Fields
+type ProductsDocAccessFields_information {
+  create: ProductsDocAccessFields_information_Create
+  read: ProductsDocAccessFields_information_Read
+  update: ProductsDocAccessFields_information_Update
+  delete: ProductsDocAccessFields_information_Delete
 }
 
-type ProductsDocAccessFields_additionalInformation_Create {
+type ProductsDocAccessFields_information_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_Read {
+type ProductsDocAccessFields_information_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_Update {
+type ProductsDocAccessFields_information_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_Delete {
+type ProductsDocAccessFields_information_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_Fields {
-  title: ProductsDocAccessFields_additionalInformation_title
-  message: ProductsDocAccessFields_additionalInformation_message
-  id: ProductsDocAccessFields_additionalInformation_id
+type ProductsDocAccessFields_benefits {
+  create: ProductsDocAccessFields_benefits_Create
+  read: ProductsDocAccessFields_benefits_Read
+  update: ProductsDocAccessFields_benefits_Update
+  delete: ProductsDocAccessFields_benefits_Delete
+  fields: ProductsDocAccessFields_benefits_Fields
 }
 
-type ProductsDocAccessFields_additionalInformation_title {
-  create: ProductsDocAccessFields_additionalInformation_title_Create
-  read: ProductsDocAccessFields_additionalInformation_title_Read
-  update: ProductsDocAccessFields_additionalInformation_title_Update
-  delete: ProductsDocAccessFields_additionalInformation_title_Delete
-}
-
-type ProductsDocAccessFields_additionalInformation_title_Create {
+type ProductsDocAccessFields_benefits_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_title_Read {
+type ProductsDocAccessFields_benefits_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_title_Update {
+type ProductsDocAccessFields_benefits_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_title_Delete {
+type ProductsDocAccessFields_benefits_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_message {
-  create: ProductsDocAccessFields_additionalInformation_message_Create
-  read: ProductsDocAccessFields_additionalInformation_message_Read
-  update: ProductsDocAccessFields_additionalInformation_message_Update
-  delete: ProductsDocAccessFields_additionalInformation_message_Delete
+type ProductsDocAccessFields_benefits_Fields {
+  title: ProductsDocAccessFields_benefits_title
+  description: ProductsDocAccessFields_benefits_description
+  id: ProductsDocAccessFields_benefits_id
 }
 
-type ProductsDocAccessFields_additionalInformation_message_Create {
+type ProductsDocAccessFields_benefits_title {
+  create: ProductsDocAccessFields_benefits_title_Create
+  read: ProductsDocAccessFields_benefits_title_Read
+  update: ProductsDocAccessFields_benefits_title_Update
+  delete: ProductsDocAccessFields_benefits_title_Delete
+}
+
+type ProductsDocAccessFields_benefits_title_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_message_Read {
+type ProductsDocAccessFields_benefits_title_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_message_Update {
+type ProductsDocAccessFields_benefits_title_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_message_Delete {
+type ProductsDocAccessFields_benefits_title_Delete {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_id {
-  create: ProductsDocAccessFields_additionalInformation_id_Create
-  read: ProductsDocAccessFields_additionalInformation_id_Read
-  update: ProductsDocAccessFields_additionalInformation_id_Update
-  delete: ProductsDocAccessFields_additionalInformation_id_Delete
+type ProductsDocAccessFields_benefits_description {
+  create: ProductsDocAccessFields_benefits_description_Create
+  read: ProductsDocAccessFields_benefits_description_Read
+  update: ProductsDocAccessFields_benefits_description_Update
+  delete: ProductsDocAccessFields_benefits_description_Delete
 }
 
-type ProductsDocAccessFields_additionalInformation_id_Create {
+type ProductsDocAccessFields_benefits_description_Create {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_id_Read {
+type ProductsDocAccessFields_benefits_description_Read {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_id_Update {
+type ProductsDocAccessFields_benefits_description_Update {
   permission: Boolean!
 }
 
-type ProductsDocAccessFields_additionalInformation_id_Delete {
+type ProductsDocAccessFields_benefits_description_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_benefits_id {
+  create: ProductsDocAccessFields_benefits_id_Create
+  read: ProductsDocAccessFields_benefits_id_Read
+  update: ProductsDocAccessFields_benefits_id_Update
+  delete: ProductsDocAccessFields_benefits_id_Delete
+}
+
+type ProductsDocAccessFields_benefits_id_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_benefits_id_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_benefits_id_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_benefits_id_Delete {
   permission: Boolean!
 }
 
@@ -4495,7 +4533,8 @@ type ProductVersion {
 
 type ProductVersion_Version {
   title: String
-  additionalInformation: [AdditionalInformation!]
+  information: String
+  benefits: [Benefits!]
   publishedOn: DateTime
   layout: [ProductVersion_Version_Layout!]!
   stripeProductID: String
@@ -4706,9 +4745,10 @@ type versionsProducts {
 input versionsProduct_where {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
-  version__additionalInformation__title: versionsProduct_version__additionalInformation__title_operator
-  version__additionalInformation__message: versionsProduct_version__additionalInformation__message_operator
-  version__additionalInformation__id: versionsProduct_version__additionalInformation__id_operator
+  version__information: versionsProduct_version__information_operator
+  version__benefits__title: versionsProduct_version__benefits__title_operator
+  version__benefits__description: versionsProduct_version__benefits__description_operator
+  version__benefits__id: versionsProduct_version__benefits__id_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -4750,7 +4790,7 @@ input versionsProduct_version__title_operator {
   all: [String]
 }
 
-input versionsProduct_version__additionalInformation__title_operator {
+input versionsProduct_version__information_operator {
   equals: String
   not_equals: String
   like: String
@@ -4760,7 +4800,7 @@ input versionsProduct_version__additionalInformation__title_operator {
   all: [String]
 }
 
-input versionsProduct_version__additionalInformation__message_operator {
+input versionsProduct_version__benefits__title_operator {
   equals: String
   not_equals: String
   like: String
@@ -4770,7 +4810,17 @@ input versionsProduct_version__additionalInformation__message_operator {
   all: [String]
 }
 
-input versionsProduct_version__additionalInformation__id_operator {
+input versionsProduct_version__benefits__description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input versionsProduct_version__benefits__id_operator {
   equals: String
   not_equals: String
   like: String
@@ -4955,9 +5005,10 @@ input versionsProduct_id_operator {
 input versionsProduct_where_and {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
-  version__additionalInformation__title: versionsProduct_version__additionalInformation__title_operator
-  version__additionalInformation__message: versionsProduct_version__additionalInformation__message_operator
-  version__additionalInformation__id: versionsProduct_version__additionalInformation__id_operator
+  version__information: versionsProduct_version__information_operator
+  version__benefits__title: versionsProduct_version__benefits__title_operator
+  version__benefits__description: versionsProduct_version__benefits__description_operator
+  version__benefits__id: versionsProduct_version__benefits__id_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -4983,9 +5034,10 @@ input versionsProduct_where_and {
 input versionsProduct_where_or {
   parent: versionsProduct_parent_operator
   version__title: versionsProduct_version__title_operator
-  version__additionalInformation__title: versionsProduct_version__additionalInformation__title_operator
-  version__additionalInformation__message: versionsProduct_version__additionalInformation__message_operator
-  version__additionalInformation__id: versionsProduct_version__additionalInformation__id_operator
+  version__information: versionsProduct_version__information_operator
+  version__benefits__title: versionsProduct_version__benefits__title_operator
+  version__benefits__description: versionsProduct_version__benefits__description_operator
+  version__benefits__id: versionsProduct_version__benefits__id_operator
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
@@ -9614,7 +9666,8 @@ type productsAccess {
 
 type ProductsFields {
   title: ProductsFields_title
-  additionalInformation: ProductsFields_additionalInformation
+  information: ProductsFields_information
+  benefits: ProductsFields_benefits
   publishedOn: ProductsFields_publishedOn
   layout: ProductsFields_layout
   stripeProductID: ProductsFields_stripeProductID
@@ -9654,102 +9707,125 @@ type ProductsFields_title_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation {
-  create: ProductsFields_additionalInformation_Create
-  read: ProductsFields_additionalInformation_Read
-  update: ProductsFields_additionalInformation_Update
-  delete: ProductsFields_additionalInformation_Delete
-  fields: ProductsFields_additionalInformation_Fields
+type ProductsFields_information {
+  create: ProductsFields_information_Create
+  read: ProductsFields_information_Read
+  update: ProductsFields_information_Update
+  delete: ProductsFields_information_Delete
 }
 
-type ProductsFields_additionalInformation_Create {
+type ProductsFields_information_Create {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_Read {
+type ProductsFields_information_Read {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_Update {
+type ProductsFields_information_Update {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_Delete {
+type ProductsFields_information_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_Fields {
-  title: ProductsFields_additionalInformation_title
-  message: ProductsFields_additionalInformation_message
-  id: ProductsFields_additionalInformation_id
+type ProductsFields_benefits {
+  create: ProductsFields_benefits_Create
+  read: ProductsFields_benefits_Read
+  update: ProductsFields_benefits_Update
+  delete: ProductsFields_benefits_Delete
+  fields: ProductsFields_benefits_Fields
 }
 
-type ProductsFields_additionalInformation_title {
-  create: ProductsFields_additionalInformation_title_Create
-  read: ProductsFields_additionalInformation_title_Read
-  update: ProductsFields_additionalInformation_title_Update
-  delete: ProductsFields_additionalInformation_title_Delete
-}
-
-type ProductsFields_additionalInformation_title_Create {
+type ProductsFields_benefits_Create {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_title_Read {
+type ProductsFields_benefits_Read {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_title_Update {
+type ProductsFields_benefits_Update {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_title_Delete {
+type ProductsFields_benefits_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_message {
-  create: ProductsFields_additionalInformation_message_Create
-  read: ProductsFields_additionalInformation_message_Read
-  update: ProductsFields_additionalInformation_message_Update
-  delete: ProductsFields_additionalInformation_message_Delete
+type ProductsFields_benefits_Fields {
+  title: ProductsFields_benefits_title
+  description: ProductsFields_benefits_description
+  id: ProductsFields_benefits_id
 }
 
-type ProductsFields_additionalInformation_message_Create {
+type ProductsFields_benefits_title {
+  create: ProductsFields_benefits_title_Create
+  read: ProductsFields_benefits_title_Read
+  update: ProductsFields_benefits_title_Update
+  delete: ProductsFields_benefits_title_Delete
+}
+
+type ProductsFields_benefits_title_Create {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_message_Read {
+type ProductsFields_benefits_title_Read {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_message_Update {
+type ProductsFields_benefits_title_Update {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_message_Delete {
+type ProductsFields_benefits_title_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_id {
-  create: ProductsFields_additionalInformation_id_Create
-  read: ProductsFields_additionalInformation_id_Read
-  update: ProductsFields_additionalInformation_id_Update
-  delete: ProductsFields_additionalInformation_id_Delete
+type ProductsFields_benefits_description {
+  create: ProductsFields_benefits_description_Create
+  read: ProductsFields_benefits_description_Read
+  update: ProductsFields_benefits_description_Update
+  delete: ProductsFields_benefits_description_Delete
 }
 
-type ProductsFields_additionalInformation_id_Create {
+type ProductsFields_benefits_description_Create {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_id_Read {
+type ProductsFields_benefits_description_Read {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_id_Update {
+type ProductsFields_benefits_description_Update {
   permission: Boolean!
 }
 
-type ProductsFields_additionalInformation_id_Delete {
+type ProductsFields_benefits_description_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_benefits_id {
+  create: ProductsFields_benefits_id_Create
+  read: ProductsFields_benefits_id_Read
+  update: ProductsFields_benefits_id_Update
+  delete: ProductsFields_benefits_id_Delete
+}
+
+type ProductsFields_benefits_id_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_benefits_id_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_benefits_id_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_benefits_id_Delete {
   permission: Boolean!
 }
 
@@ -12784,7 +12860,8 @@ enum PageUpdate__status_MutationInput {
 
 input mutationProductInput {
   title: String!
-  additionalInformation: [mutationProduct_AdditionalInformationInput]
+  information: String!
+  benefits: [mutationProduct_BenefitsInput]
   publishedOn: String
   layout: JSON
   stripeProductID: String
@@ -12801,9 +12878,9 @@ input mutationProductInput {
   _status: Product__status_MutationInput
 }
 
-input mutationProduct_AdditionalInformationInput {
+input mutationProduct_BenefitsInput {
   title: String!
-  message: String!
+  description: String!
   id: String
 }
 
@@ -12820,7 +12897,8 @@ enum Product__status_MutationInput {
 
 input mutationProductUpdateInput {
   title: String
-  additionalInformation: [mutationProductUpdate_AdditionalInformationInput]
+  information: String
+  benefits: [mutationProductUpdate_BenefitsInput]
   publishedOn: String
   layout: JSON
   stripeProductID: String
@@ -12837,9 +12915,9 @@ input mutationProductUpdateInput {
   _status: ProductUpdate__status_MutationInput
 }
 
-input mutationProductUpdate_AdditionalInformationInput {
+input mutationProductUpdate_BenefitsInput {
   title: String!
-  message: String!
+  description: String!
   id: String
 }
 

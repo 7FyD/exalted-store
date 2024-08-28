@@ -18,12 +18,7 @@ import classes from "./index.module.scss";
 export const ProductHero: React.FC<{
   product: Product;
 }> = ({ product }) => {
-  const {
-    title,
-    additionalInformation,
-    categories,
-    meta: { image: metaImage, description } = {},
-  } = product;
+  const { title, categories, meta: { image: metaImage, description } = {} } = product;
   const { setCategoryFilters } = useFilter();
   return (
     <Gutter className={classes.productHero}>
@@ -63,7 +58,6 @@ export const ProductHero: React.FC<{
           <p>{description}</p>
         </div>
         <AddToCartButton product={product} className={classes.addToCartButton} />
-        {additionalInformation && <Accordion data={additionalInformation} />}
       </div>
     </Gutter>
   );
