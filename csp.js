@@ -28,6 +28,7 @@ const policies = {
     "https://checkout.stripe.com",
     "https://api.stripe.com",
     "https://maps.googleapis.com",
+    "http://65.108.249.37:3001",
   ],
 };
 
