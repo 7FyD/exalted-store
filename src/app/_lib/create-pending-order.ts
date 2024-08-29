@@ -12,7 +12,7 @@ export const createOrder = async (
   cartItems: CartItem[],
   userEmail: string,
   username: string,
-  orderId: string,
+  stripeCheckoutSessionID: string,
 ): Promise<{ success: boolean }> => {
   if (cartItems.length < 1 || !userEmail || !username) {
     throw new Error("Invalid order data.");
@@ -62,6 +62,7 @@ export const createOrder = async (
     // build the order data
     const orderData = {
       total,
+      stripeCheckoutSessionID,
       orderedBy: user.id,
       contactDetails: {
         email: user.email,
@@ -78,7 +79,6 @@ export const createOrder = async (
         collection: "orders",
         data: {
           ...orderData,
-          id: orderId,
           items: orderData.items.map(item => ({
             product: item.product.id,
             quantity: item.quantity,

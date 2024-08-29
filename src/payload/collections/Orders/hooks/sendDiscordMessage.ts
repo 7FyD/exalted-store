@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { AfterChangeHook } from "payload/dist/collections/config/types";
 
 import type { Order } from "../../../payload-types";
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// TODO: update this hook to take into account the order status
 export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
-  if (operation === "create" && doc.orderedBy) {
+  if (operation === "update" && doc.orderedBy && doc.orderDetails.status === "paid") {
     const minecraftUsername = doc.orderDetails.minecraftUsername;
     const items = doc.items
       .map(item => (typeof item.product === "string" ? item.product : item.product.title))

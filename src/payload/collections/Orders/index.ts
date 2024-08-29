@@ -45,6 +45,14 @@ export const Orders: CollectionConfig = {
       },
     },
     {
+      name: "stripeCheckoutSessionID",
+      label: "Stripe Checkout Session ID",
+      type: "text",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
       name: "total",
       type: "number",
       required: true,

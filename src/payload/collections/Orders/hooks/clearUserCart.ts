@@ -4,7 +4,11 @@ import type { Order } from "../../../payload-types";
 export const clearUserCart: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
   const { payload } = req;
 
-  if (operation === "create" && doc.orderedBy && doc.orderDetails.status === "paid") {
+  if (
+    (operation === "create" || operation === "update") &&
+    doc.orderedBy &&
+    doc.orderDetails.status === "paid"
+  ) {
     const orderedBy = typeof doc.orderedBy === "string" ? doc.orderedBy : doc.orderedBy.id;
 
     const user = await payload.findByID({

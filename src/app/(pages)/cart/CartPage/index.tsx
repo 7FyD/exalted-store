@@ -34,8 +34,13 @@ export const CartPage: React.FC<{
     if (user && account) {
       setIsLoading(true);
       const response = await createCheckoutSession(cart.items, user?.email);
-      if (response.url && response.orderId) {
-        const newOrder = await createOrder(cart.items, user.email, account.name, response.orderId);
+      if (response.url && response.stripeCheckoutSessionID) {
+        const newOrder = await createOrder(
+          cart.items,
+          user.email,
+          account.name,
+          response.stripeCheckoutSessionID,
+        );
         if (newOrder.success) {
           window.location.href = response.url;
         } else {

@@ -10,7 +10,7 @@ import { priceIdFromJSON } from "../../app/_utilities/priceUtilities";
 export async function createCheckoutSession(
   cartItems: CartItem[],
   userEmail: string,
-): Promise<{ url: string | null; orderId: string | null }> {
+): Promise<{ url: string | null; stripeCheckoutSessionID: string | null }> {
   const origin: string = headers().get("origin") as string;
   const line_items = cartItems.map(item => ({
     price:
@@ -60,9 +60,9 @@ export async function createCheckoutSession(
     },
     customer_email: userEmail,
   });
-
+  console.log(session);
   return {
     url: session.url,
-    orderId: session.id,
+    stripeCheckoutSessionID: session.id,
   };
 }

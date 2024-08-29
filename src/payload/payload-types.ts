@@ -405,6 +405,7 @@ export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
   stripePaymentIntentID?: string | null;
+  stripeCheckoutSessionID?: string | null;
   total: number;
   contactDetails: {
     email: string;
