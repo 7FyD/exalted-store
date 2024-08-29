@@ -5065,6 +5065,7 @@ type Order {
   orderedBy: User
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
+  stripeCheckoutURL: String
   total: Float!
   contactDetails: Order_ContactDetails
   orderDetails: Order_OrderDetails
@@ -5153,6 +5154,7 @@ input Order_where {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
+  stripeCheckoutURL: Order_stripeCheckoutURL_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
   orderDetails__status: Order_orderDetails__status_operator
@@ -5189,6 +5191,17 @@ input Order_stripePaymentIntentID_operator {
 }
 
 input Order_stripeCheckoutSessionID_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_stripeCheckoutURL_operator {
   equals: String
   not_equals: String
   like: String
@@ -5318,6 +5331,7 @@ input Order_where_and {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
+  stripeCheckoutURL: Order_stripeCheckoutURL_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
   orderDetails__status: Order_orderDetails__status_operator
@@ -5337,6 +5351,7 @@ input Order_where_or {
   orderedBy: Order_orderedBy_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
+  stripeCheckoutURL: Order_stripeCheckoutURL_operator
   total: Order_total_operator
   contactDetails__email: Order_contactDetails__email_operator
   orderDetails__status: Order_orderDetails__status_operator
@@ -5364,6 +5379,7 @@ type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   stripeCheckoutSessionID: OrdersDocAccessFields_stripeCheckoutSessionID
+  stripeCheckoutURL: OrdersDocAccessFields_stripeCheckoutURL
   total: OrdersDocAccessFields_total
   contactDetails: OrdersDocAccessFields_contactDetails
   orderDetails: OrdersDocAccessFields_orderDetails
@@ -5438,6 +5454,29 @@ type OrdersDocAccessFields_stripeCheckoutSessionID_Update {
 }
 
 type OrdersDocAccessFields_stripeCheckoutSessionID_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_stripeCheckoutURL {
+  create: OrdersDocAccessFields_stripeCheckoutURL_Create
+  read: OrdersDocAccessFields_stripeCheckoutURL_Read
+  update: OrdersDocAccessFields_stripeCheckoutURL_Update
+  delete: OrdersDocAccessFields_stripeCheckoutURL_Delete
+}
+
+type OrdersDocAccessFields_stripeCheckoutURL_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_stripeCheckoutURL_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_stripeCheckoutURL_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_stripeCheckoutURL_Delete {
   permission: Boolean!
 }
 
@@ -10351,6 +10390,7 @@ type OrdersFields {
   orderedBy: OrdersFields_orderedBy
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   stripeCheckoutSessionID: OrdersFields_stripeCheckoutSessionID
+  stripeCheckoutURL: OrdersFields_stripeCheckoutURL
   total: OrdersFields_total
   contactDetails: OrdersFields_contactDetails
   orderDetails: OrdersFields_orderDetails
@@ -10425,6 +10465,29 @@ type OrdersFields_stripeCheckoutSessionID_Update {
 }
 
 type OrdersFields_stripeCheckoutSessionID_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_stripeCheckoutURL {
+  create: OrdersFields_stripeCheckoutURL_Create
+  read: OrdersFields_stripeCheckoutURL_Read
+  update: OrdersFields_stripeCheckoutURL_Update
+  delete: OrdersFields_stripeCheckoutURL_Delete
+}
+
+type OrdersFields_stripeCheckoutURL_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_stripeCheckoutURL_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_stripeCheckoutURL_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_stripeCheckoutURL_Delete {
   permission: Boolean!
 }
 
@@ -12999,6 +13062,7 @@ input mutationOrderInput {
   orderedBy: String
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
+  stripeCheckoutURL: String
   total: Float!
   contactDetails: mutationOrder_ContactDetailsInput!
   orderDetails: mutationOrder_OrderDetailsInput!
@@ -13033,6 +13097,7 @@ input mutationOrderUpdateInput {
   orderedBy: String
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
+  stripeCheckoutURL: String
   total: Float
   contactDetails: mutationOrderUpdate_ContactDetailsInput!
   orderDetails: mutationOrderUpdate_OrderDetailsInput!

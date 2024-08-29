@@ -53,6 +53,14 @@ export const Orders: CollectionConfig = {
       },
     },
     {
+      name: "stripeCheckoutURL",
+      label: "Stripe Checkout URL",
+      type: "text",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
       name: "total",
       type: "number",
       required: true,

@@ -40,6 +40,7 @@ export const CartPage: React.FC<{
           user.email,
           account.name,
           response.stripeCheckoutSessionID,
+          response.url,
         );
         if (newOrder.success) {
           window.location.href = response.url;

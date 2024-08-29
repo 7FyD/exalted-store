@@ -61,8 +61,9 @@ export default async function Orders() {
                 <div className={classes.itemContent}>
                   <h4 className={classes.itemTitle}>{`Order ${order.id}`}</h4>
                   <div className={classes.itemMeta}>
-                    <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
+                    <p>{`Ordered on: ${formatDateTime(order.createdAt)}`}</p>
                     <p>{`Number of items: ${order.items.length}`}</p>
+                    <p>{`Status: ${order.orderDetails.status}`}</p>
                     <p>
                       {"Total: "}
                       {new Intl.NumberFormat("en-US", {

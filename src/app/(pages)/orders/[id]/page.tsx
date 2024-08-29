@@ -4,12 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Order as OrderC } from "../../../../payload/payload-types";
+import Breadcrumbs from "../../../_components/Breadcrumbs";
 import { Button } from "../../../_components/Button";
 import { Gutter } from "../../../_components/Gutter";
 import { HR } from "../../../_components/HR";
 import { Media } from "../../../_components/Media";
 import { Price } from "../../../_components/Price";
-import { formatDateTime } from "../../../_utilities/formatDateTime";
+import { Button as ButtonS } from "../../../_components/ui/button";
+import { Separator } from "../../../_components/ui/separator";
 import { getMeUser } from "../../../_utilities/getMeUser";
 import { mergeOpenGraph } from "../../../_utilities/mergeOpenGraph";
 
@@ -45,12 +47,47 @@ export default async function Order({ params: { id } }) {
     notFound();
   }
 
+  const status =
+    order.orderDetails.status.charAt(0).toUpperCase() + order.orderDetails.status.slice(1);
+
+  const statusColor =
+    status === "Pending"
+      ? "text-yellow-500"
+      : status === "Paid"
+      ? "text-blue-500"
+      : "text-emerald-500";
+
   return (
     <Gutter className={classes.orders}>
       <div className={classes.itemMeta}>
-        <p>{`ID: ${order.id}`}</p>
-        <p>{`Ordered on: ${formatDateTime(order.createdAt)}`}</p>
-        <p>{`Total items ordered: ${order.items.length}`}</p>
+        <Breadcrumbs />
+        <p className="text-xl font-medium">{`Order ID: ${order.id}`}</p>
+        <div className="flex items-center gap-6 h-6">
+          <p className="text-foreground/60">
+            Order date:{" "}
+            <span className="text-foreground">
+              {new Date(order.createdAt).toLocaleDateString("en-us", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </span>
+          </p>
+          <Separator orientation="vertical" />
+          <p className={`${statusColor} font-medium`}>
+            {`Current order status: ${status}`}
+            {status === "Pending" && (
+              <>
+                {" - "}
+                <ButtonS className="p-0" asChild variant="link">
+                  <Link href={order.stripeCheckoutURL} target="_blank">
+                    continue checkout
+                  </Link>
+                </ButtonS>
+              </>
+            )}
+          </p>
+        </div>
         <p className={classes.total}>
           {"Total: "}
           {new Intl.NumberFormat("en-US", {
