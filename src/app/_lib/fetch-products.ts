@@ -9,15 +9,15 @@ export const fetchProducts = async (categoryTitle: string): Promise<Product[]> =
       categoryTitle.toLowerCase(),
     )}`,
   );
-  console.log(categoryTitle);
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
   const data: Result = await response.json();
 
-  if (data.docs.every(product => typeof product !== "string")) return data.docs;
-  else {
+  if (data.docs.every(product => typeof product === "object" && product !== null)) {
+    return data.docs as Product[];
+  } else {
     throw new Error("Unexpected product type returned.");
   }
 };

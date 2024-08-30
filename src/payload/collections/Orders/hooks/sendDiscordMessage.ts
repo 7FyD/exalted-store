@@ -36,7 +36,6 @@ export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, ope
       if (!response.ok) {
         console.error("Failed to send Discord message:", await response.text());
       }
-      console.log("Discord order request sent successfully");
     } catch (error: unknown) {
       console.error("Error sending Discord message:", error);
     }

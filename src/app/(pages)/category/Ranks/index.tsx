@@ -15,12 +15,19 @@ const RanksPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Gutter className="text-center">
+        <p className="font-semibold">Loading...</p>
+      </Gutter>
+    );
   if (error || !data || data.length < 1)
     return (
-      <p className="text-center font-semibold">
-        Error loading ranks :( please contact our server administrator (contact link)
-      </p>
+      <Gutter className="text-center">
+        <p className="font-semibold">
+          Error loading ranks :( please contact our server administrator (contact link)
+        </p>
+      </Gutter>
     );
 
   const products: Product[] = data;

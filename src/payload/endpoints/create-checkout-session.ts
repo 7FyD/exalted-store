@@ -61,7 +61,6 @@ export async function createCheckoutSession(
     },
     customer_email: userEmail,
   });
-  console.log(session);
   return {
     url: session.url,
     stripeCheckoutSessionID: session.id,

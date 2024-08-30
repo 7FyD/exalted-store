@@ -6,5 +6,11 @@ module.exports = {
   rules: {
     "no-console": "off",
     "linebreak-style": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
 };

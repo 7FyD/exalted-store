@@ -1,5 +1,5 @@
 {
-  "name": "exalted-kingdom-store",
+  "name": "@payloadcms/template-ecommerce",
   "description": "This is the store for the Exalted Kingdom factions server",
   "version": "1.0.0",
   "main": "dist/server.js",
