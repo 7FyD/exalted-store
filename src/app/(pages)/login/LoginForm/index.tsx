@@ -44,6 +44,8 @@ const LoginForm: React.FC = () => {
     [login, router],
   );
 
+  // TODO: revamp authentification UI
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <Message error={error} className={classes.message} />

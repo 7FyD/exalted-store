@@ -31,6 +31,7 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
           height={64}
         />
       </Link>
+      {/* TODO: update nav items*/}
       <div className="flex items-center gap-8">
         {navItems.map(({ link }, i) => {
           return (

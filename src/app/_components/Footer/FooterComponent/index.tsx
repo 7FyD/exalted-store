@@ -16,6 +16,9 @@ const josefin = Josefin_Sans({
   subsets: ["latin"],
   weight: "400",
 });
+
+// TODO: revamp footer
+
 const FooterComponent = ({ footer }: { footer: Footer }) => {
   const pathname = usePathname();
 

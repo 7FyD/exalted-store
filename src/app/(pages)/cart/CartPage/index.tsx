@@ -100,8 +100,7 @@ export const CartPage: React.FC<{
                 <div className={classes.header}>
                   <p>Products</p>
                   <div className={classes.headerItemDetails}>
-                    <p></p>
-                    <p></p>
+                    {/* TODO: remove quantity from all products and cart */}
                     <p>Quantity</p>
                   </div>
                   <p className={classes.headersubtotal}>Subtotal</p>
@@ -140,20 +139,6 @@ export const CartPage: React.FC<{
                 <div className={classes.row}>
                   <h6 className={classes.cartTotal}>Summary</h6>
                 </div>
-
-                {/* <div className={classes.row}>
-                  <p className={classes.cartTotal}>Products</p>
-                  <p className={classes.cartTotal}>
-                    €{((cartTotal.raw - (cartTotal.raw / 100) * 19) / 100).toFixed(2)}
-                  </p>
-                </div>
-
-                <div className={classes.row}>
-                  <p className={classes.cartTotal}>Tax</p>
-                  <p className={classes.cartTotal}>
-                    €{((cartTotal.raw / 100 / 100) * 19).toFixed(2)}
-                  </p>
-                </div> */}
                 <div className={classes.row}>
                   <p className={classes.cartTotal}>Grand Total</p>
                   <p className={classes.cartTotal}>{cartTotal.formatted}</p>

@@ -11,6 +11,7 @@ export async function createCheckoutSession(
   cartItems: CartItem[],
   userEmail: string,
 ): Promise<{ url: string | null; stripeCheckoutSessionID: string | null }> {
+  // TODO?: check mojang api if error return server-side error to combat frontend manipuation
   const origin: string = headers().get("origin") as string;
   const line_items = cartItems.map(item => ({
     price:
