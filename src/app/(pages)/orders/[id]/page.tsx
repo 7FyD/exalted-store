@@ -62,38 +62,28 @@ export default async function Order({ params: { id } }) {
       <div className={classes.itemMeta}>
         <Breadcrumbs />
         <p className="text-xl font-medium">{`Order ID: ${order.id}`}</p>
-        <div className="flex items-center gap-6 h-6">
-          <p className="text-foreground/60">
-            Order date:{" "}
-            <span className="text-foreground">
-              {new Date(order.createdAt).toLocaleDateString("en-us", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-          </p>
-          <Separator orientation="vertical" />
-          <p className={`${statusColor} font-medium`}>
-            {`Current order status: ${status}`}
-            {status === "Pending" && (
-              <>
-                {" - "}
-                <ButtonS className="p-0" asChild variant="link">
-                  <Link href={order.stripeCheckoutURL} target="_blank">
-                    continue checkout
-                  </Link>
-                </ButtonS>
-              </>
-            )}
-          </p>
-        </div>
-        <p className={classes.total}>
-          {"Total: "}
-          {new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "eur",
-          }).format(order.total / 100)}
+        <p className="text-foreground/60">
+          Order date:{" "}
+          <span className="text-foreground">
+            {new Date(order.createdAt).toLocaleDateString("en-us", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </span>
+        </p>
+        <p className={`${statusColor} font-medium !-mt-2`}>
+          {`Current order status: ${status}`}
+          {status === "Pending" && (
+            <>
+              {" - "}
+              <ButtonS className="p-0" asChild variant="link">
+                <Link href={order.stripeCheckoutURL} target="_blank">
+                  continue checkout
+                </Link>
+              </ButtonS>
+            </>
+          )}
         </p>
       </div>
       <HR />
