@@ -41,8 +41,9 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
               key={i}
               {...link}
               className={`hover:underline ${
-                currentPath ===
-                  (typeof link.reference.value !== "string" ? link.reference.value.slug : "") &&
+                (currentPath ===
+                  (typeof link.reference?.value !== "string" ? link.reference?.value.slug : "") ||
+                  link.url === path) &&
                 "!underline"
               }`}
             />

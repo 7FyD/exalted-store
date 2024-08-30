@@ -33,7 +33,7 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
                 <p className={`${josefin.className} text-3xl text-white`}>7FyD.dev</p>
               </Link>
 
-              <p>{footer.copyright}</p>
+              <p>{footer?.copyright}</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {navItems.map(({ link }) => {
