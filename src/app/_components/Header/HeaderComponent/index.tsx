@@ -17,11 +17,13 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
   const { user } = useAuth();
   const path = usePathname();
   const currentPath = path.split("/")[1];
+  const isAuthRoute =
+    path.includes("login") || path.includes("create-account") || path.includes("recover-password");
   return (
     <Gutter
-      className={`flex w-full items-center justify-between border-b-2 text-lg p-4 mb-12 ${
-        user === undefined && "!hidden"
-      }`}
+      className={`flex w-full items-center justify-between border-b-2 text-lg py-4 ${
+        !isAuthRoute && "mb-12"
+      } ${user === undefined && "!hidden"}`}
     >
       <Link className="flex" href="/">
         <Image

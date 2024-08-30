@@ -22,7 +22,6 @@ import BeforeLogin from "./components/BeforeLogin";
 import { createPaymentIntent } from "./endpoints/create-payment-intent";
 import { customersProxy } from "./endpoints/customers";
 import { productsProxy } from "./endpoints/products";
-import { seed } from "./endpoints/seed";
 import { Footer } from "./globals/Footer";
 import { Header } from "./globals/Header";
 import { Settings } from "./globals/Settings";
@@ -67,7 +66,6 @@ export default buildConfig({
             [path.resolve(__dirname, "endpoints/create-payment-intent")]: mockModulePath,
             [path.resolve(__dirname, "endpoints/customers")]: mockModulePath,
             [path.resolve(__dirname, "endpoints/products")]: mockModulePath,
-            [path.resolve(__dirname, "endpoints/seed")]: mockModulePath,
             stripe: mockModulePath,
             express: mockModulePath,
           },
@@ -111,11 +109,6 @@ export default buildConfig({
       path: "/stripe/products",
       method: "get",
       handler: productsProxy,
-    },
-    {
-      path: "/seed",
-      method: "get",
-      handler: seed,
     },
   ],
   plugins: [

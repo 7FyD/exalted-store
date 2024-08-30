@@ -27,21 +27,17 @@ export default async function CreateAccount() {
     <section className={classes.createAccount}>
       <div className={`${classes.heroImg} ${josefin.className}`}>
         <Link
-          className="text-4xl mx-14 h-max rounded-full top-10 relative text-black lg:text-white backdrop-blur-md"
-          href="/"
+          className="text-4xl mx-14 top-10 relative"
+          href="https://7fyd.dev"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          7FyD.dev
+          7FyD.dev (here would be an image)
         </Link>
       </div>
-
       <div className={classes.formWrapper}>
         <div className={classes.formContainer}>
           <RenderParams className={classes.params} />
-
-          <div className={classes.formTitle}>
-            <h3>Create Account</h3>
-            <Image src="/assets/icons/hand.png" alt="hand" width={30} height={30} />
-          </div>
 
           <p>Please enter details</p>
 

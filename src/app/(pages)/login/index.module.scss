@@ -10,7 +10,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('/assets/images/login-bg.jpeg');
+    background-color: #000
   }
 
   p {
@@ -41,7 +41,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/assets/images/login-bg.jpeg');
+  // background-color: purple;
 
   @include mid-break {
     background: none;
@@ -81,6 +81,7 @@
   width: 100%;
   padding: 50px;
   border-radius: 10px;
+  margin-bottom: 150px;
 
   @include mid-break {
     backdrop-filter: blur(30px);

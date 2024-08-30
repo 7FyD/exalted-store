@@ -4,7 +4,6 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { Category, Page as PageC, Product } from "../../../payload/payload-types";
-import { staticHome } from "../../../payload/seed/home-static";
 import { fetchDoc } from "../../_api/fetchDoc";
 import { fetchDocs } from "../../_api/fetchDocs";
 import { Blocks } from "../../_components/Blocks";
@@ -103,10 +102,5 @@ export async function generateMetadata({ params: { slug = "home" } }): Promise<M
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // in production you may want to redirect to a 404  page or at least log the error somewhere
   }
-
-  if (!page && slug === "home") {
-    page = staticHome;
-  }
-
   return generateMeta({ doc: page });
 }

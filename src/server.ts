@@ -10,8 +10,6 @@ dotenv.config({
 import express from "express";
 import payload from "payload";
 
-import { seed } from "./payload/seed";
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -23,11 +21,6 @@ const start = async (): Promise<void> => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
     },
   });
-
-  if (process.env.PAYLOAD_SEED === "true") {
-    await seed(payload);
-    process.exit();
-  }
 
   if (process.env.NEXT_BUILD) {
     app.listen(PORT, async () => {

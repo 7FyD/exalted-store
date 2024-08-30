@@ -20,10 +20,12 @@ export default async function RecoverPassword() {
     <section className={classes.recoverPassword}>
       <div className={`${classes.heroImg} ${josefin.className}`}>
         <Link
-          className="text-4xl mx-14 h-max rounded-full top-10 relative text-black lg:text-white"
-          href="/"
+          className="text-4xl mx-14 top-10 relative"
+          href="https://7fyd.dev"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          7FyD.dev
+          7FyD.dev (here would be an image)
         </Link>
       </div>
 

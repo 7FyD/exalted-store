@@ -24,19 +24,19 @@ export default async function Login() {
   return (
     <section className={classes.login}>
       <div className={`${classes.heroImg} ${josefin.className}`}>
-        <Link className="text-4xl mx-14 top-10 relative" href="/">
-          7FyD.dev
+        <Link
+          className="text-4xl mx-14 top-10 relative"
+          href="https://7fyd.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          7FyD.dev (here would be an image)
         </Link>
       </div>
 
       <div className={classes.formWrapper}>
         <div className={classes.formContainer}>
           <RenderParams className={classes.params} />
-
-          <div className={classes.formTitle}>
-            <h3>Welcome</h3>
-            <Image src="/assets/icons/hand.png" alt="hand" width={30} height={30} />
-          </div>
 
           <p>Enter your accounts credentials, or join us!</p>
 
