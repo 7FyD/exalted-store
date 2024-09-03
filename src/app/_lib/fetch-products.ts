@@ -16,7 +16,7 @@ export const fetchProducts = async (categoryTitle: string): Promise<Product[]> =
   const data: Result = await response.json();
 
   if (data.docs.every(product => typeof product === "object" && product !== null)) {
-    return data.docs.toReversed() as Product[];
+    return data.docs.reverse() as Product[];
   } else {
     throw new Error("Unexpected product type returned.");
   }
