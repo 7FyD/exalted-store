@@ -31,7 +31,7 @@ export default async function Page({ params: { slug = "home" } }) {
       draft: isDraftMode,
     });
 
-    categories = await fetchDocs<Category>("categories", isDraftMode, 3);
+    categories = await fetchDocs<Category>("categories", isDraftMode, 3, "asc");
     products = await fetchDocs<Product>("products", isDraftMode, 5, "desc");
   } catch (error) {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
