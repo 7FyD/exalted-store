@@ -5,8 +5,6 @@ import Link from "next/link";
 import { Category } from "../../../../payload/payload-types";
 import { useFilter } from "../../../_providers/Filter";
 
-import classes from "./index.module.scss";
-
 interface CategoryCardProps {
   category: Category;
 }
@@ -24,7 +22,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
       style={{ backgroundImage: `url(${imageUrl})` }}
       onClick={() => setCategoryFilters([category.id])}
     >
-      <p className="text-2xl text-yellow-600 pb-4">{category.title}</p>
+      <p className="text-2xl text-[#711728] pb-4">
+        {category.title.charAt(0).toUpperCase() + category.title.slice(1)}
+      </p>
     </Link>
   );
 };

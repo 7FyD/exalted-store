@@ -46,7 +46,7 @@ interface RankDialogProps {
 const RankDialog: React.FC<RankDialogProps> = ({ isOpen, onClose, product }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="rounded-md sm:max-w-[425px] md:max-w-[600px]">
+      <DialogContent className="border-0 shadow-md shadow-gray-700/50 rounded-md sm:max-w-[425px] md:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>{product.title} rank benefits</DialogTitle>
           <DialogDescription>{product.information}</DialogDescription>
