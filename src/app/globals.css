@@ -31,6 +31,9 @@
       --chart-5: 340 75% 55%;
 
       --radius: 0.5rem;
+
+      --darkred-500: rgba(113, 23, 40, 1);
+      --darkred-600: rgba(80, 7, 24, 1);
     }
   
     .dark {

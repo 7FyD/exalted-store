@@ -35,16 +35,16 @@
 }
 
 .appearance--primary {
-  background-color: var(--theme-elevation-1000);
-  color: var(--theme-elevation-0);
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  background-color: var(--color-darkred-500);
+  color: var(--color-white-500)/80;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-duration: 150ms !important;
 }
 
 .appearance--primary:hover {
-  background-color: var(--theme-elevation-750);
-  color: var(--theme-elevation-0);
+  background-color: var(--color-darkred-600);
+  color: var(--color-white-500);
 }
 
 .appearance--secondary {
@@ -52,7 +52,7 @@
   box-shadow: inset 0 0 0 1px var(--theme-elevation-1000);
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-duration: 150ms !important;
 }
 
 .appearance--secondary:hover {

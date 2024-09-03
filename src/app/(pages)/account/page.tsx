@@ -46,10 +46,7 @@ export default async function Account() {
                 rel="noreferrer noopener"
                 className="mx-auto block"
               >
-                <Button
-                  className="p-6 bg-gray-300/50 text-black hover:bg-gray-300/30"
-                  variant="default"
-                >
+                <Button className="p-6" variant="default">
                   VIEW YOUR ORDERS
                 </Button>
               </Link>

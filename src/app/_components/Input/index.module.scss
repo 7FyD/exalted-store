@@ -18,17 +18,18 @@
   padding: 16px;
   font-size: inherit;
 
-  &:focus {
-    border: none;
-    outline: none;
-  }
-
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--theme-text);
     -webkit-box-shadow: 0 0 0px 1000px var(--theme-elevation-150) inset;
     transition: background-color 5000s ease-in-out 0s;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-darkred-500);
+    border-width: 2px;
   }
 }
 

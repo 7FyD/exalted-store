@@ -21,7 +21,7 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
     path.includes("login") || path.includes("create-account") || path.includes("recover-password");
   return (
     <Gutter
-      className={`flex w-full items-center justify-between border-b-2 border-[#721528] text-lg py-4 ${
+      className={`flex w-full items-center justify-between border-b-2 border-darkred-500 text-lg py-4 ${
         !isAuthRoute && "mb-12"
       } ${user === undefined && "!hidden"}`}
     >
