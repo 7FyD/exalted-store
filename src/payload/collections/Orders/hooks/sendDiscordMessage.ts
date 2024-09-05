@@ -4,6 +4,19 @@ import type { AfterChangeHook } from "payload/dist/collections/config/types";
 import type { Order } from "../../../payload-types";
 export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
   if (operation === "update" && doc.orderedBy && doc.orderDetails.status === "paid") {
+    // TODO: make separate function for updating coupon
+    const { payload } = req;
+    const coupon = doc.coupon || null;
+    if (coupon) {
+      const couponID = typeof coupon === "string" ? coupon : coupon.id;
+      const updatedCoupon = await payload.update({
+        collection: "coupons",
+        id: couponID,
+        data: {
+          uses: typeof coupon === "string" ? 0 : coupon.uses + 1,
+        },
+      });
+    }
     const minecraftUsername = doc.orderDetails.minecraftUsername;
     const items = doc.items
       .map(item => (typeof item.product === "string" ? item.product : item.product.title))

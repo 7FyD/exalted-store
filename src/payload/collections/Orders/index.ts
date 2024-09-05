@@ -34,6 +34,14 @@ export const Orders: CollectionConfig = {
       },
     },
     {
+      name: "coupon",
+      type: "relationship",
+      relationTo: "coupons",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
       name: "stripePaymentIntentID",
       label: "Stripe Payment Intent ID",
       type: "text",

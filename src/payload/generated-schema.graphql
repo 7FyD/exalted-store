@@ -12,6 +12,9 @@ type Query {
   Order(id: String!, draft: Boolean): Order
   Orders(draft: Boolean, where: Order_where, limit: Int, page: Int, sort: String): Orders
   docAccessOrder(id: String!): ordersDocAccess
+  Coupon(id: String!, draft: Boolean): Coupon
+  Coupons(draft: Boolean, where: Coupon_where, limit: Int, page: Int, sort: String): Coupons
+  docAccessCoupon(id: String!): couponsDocAccess
   Media(id: String!, draft: Boolean): Media
   allMedia(draft: Boolean, where: Media_where, limit: Int, page: Int, sort: String): allMedia
   docAccessMedia(id: String!): mediaDocAccess
@@ -5063,6 +5066,7 @@ input versionsProduct_where_or {
 type Order {
   id: String
   orderedBy: User
+  coupon: Coupon
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
   stripeCheckoutURL: String
@@ -5114,6 +5118,15 @@ A field whose value conforms to the standard internet email address format as sp
 """
 scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
 
+type Coupon {
+  name: String!
+  id: String!
+  uses: Float!
+  discount: Float!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
 type Order_ContactDetails {
   email: EmailAddress
 }
@@ -5152,6 +5165,7 @@ type Orders {
 
 input Order_where {
   orderedBy: Order_orderedBy_operator
+  coupon: Order_coupon_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
   stripeCheckoutURL: Order_stripeCheckoutURL_operator
@@ -5171,6 +5185,15 @@ input Order_where {
 }
 
 input Order_orderedBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Order_coupon_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -5329,6 +5352,7 @@ input Order_id_operator {
 
 input Order_where_and {
   orderedBy: Order_orderedBy_operator
+  coupon: Order_coupon_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
   stripeCheckoutURL: Order_stripeCheckoutURL_operator
@@ -5349,6 +5373,7 @@ input Order_where_and {
 
 input Order_where_or {
   orderedBy: Order_orderedBy_operator
+  coupon: Order_coupon_operator
   stripePaymentIntentID: Order_stripePaymentIntentID_operator
   stripeCheckoutSessionID: Order_stripeCheckoutSessionID_operator
   stripeCheckoutURL: Order_stripeCheckoutURL_operator
@@ -5377,6 +5402,7 @@ type ordersDocAccess {
 
 type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
+  coupon: OrdersDocAccessFields_coupon
   stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   stripeCheckoutSessionID: OrdersDocAccessFields_stripeCheckoutSessionID
   stripeCheckoutURL: OrdersDocAccessFields_stripeCheckoutURL
@@ -5408,6 +5434,29 @@ type OrdersDocAccessFields_orderedBy_Update {
 }
 
 type OrdersDocAccessFields_orderedBy_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_coupon {
+  create: OrdersDocAccessFields_coupon_Create
+  read: OrdersDocAccessFields_coupon_Read
+  update: OrdersDocAccessFields_coupon_Update
+  delete: OrdersDocAccessFields_coupon_Delete
+}
+
+type OrdersDocAccessFields_coupon_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_coupon_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_coupon_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_coupon_Delete {
   permission: Boolean!
 }
 
@@ -5814,6 +5863,288 @@ type OrdersUpdateDocAccess {
 }
 
 type OrdersDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Coupons {
+  docs: [Coupon]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Coupon_where {
+  name: Coupon_name_operator
+  id: Coupon_id_operator
+  uses: Coupon_uses_operator
+  discount: Coupon_discount_operator
+  updatedAt: Coupon_updatedAt_operator
+  createdAt: Coupon_createdAt_operator
+  AND: [Coupon_where_and]
+  OR: [Coupon_where_or]
+}
+
+input Coupon_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Coupon_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Coupon_uses_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Coupon_discount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Coupon_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Coupon_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Coupon_where_and {
+  name: Coupon_name_operator
+  id: Coupon_id_operator
+  uses: Coupon_uses_operator
+  discount: Coupon_discount_operator
+  updatedAt: Coupon_updatedAt_operator
+  createdAt: Coupon_createdAt_operator
+  AND: [Coupon_where_and]
+  OR: [Coupon_where_or]
+}
+
+input Coupon_where_or {
+  name: Coupon_name_operator
+  id: Coupon_id_operator
+  uses: Coupon_uses_operator
+  discount: Coupon_discount_operator
+  updatedAt: Coupon_updatedAt_operator
+  createdAt: Coupon_createdAt_operator
+  AND: [Coupon_where_and]
+  OR: [Coupon_where_or]
+}
+
+type couponsDocAccess {
+  fields: CouponsDocAccessFields
+  create: CouponsCreateDocAccess
+  read: CouponsReadDocAccess
+  update: CouponsUpdateDocAccess
+  delete: CouponsDeleteDocAccess
+}
+
+type CouponsDocAccessFields {
+  name: CouponsDocAccessFields_name
+  id: CouponsDocAccessFields_id
+  uses: CouponsDocAccessFields_uses
+  discount: CouponsDocAccessFields_discount
+  updatedAt: CouponsDocAccessFields_updatedAt
+  createdAt: CouponsDocAccessFields_createdAt
+}
+
+type CouponsDocAccessFields_name {
+  create: CouponsDocAccessFields_name_Create
+  read: CouponsDocAccessFields_name_Read
+  update: CouponsDocAccessFields_name_Update
+  delete: CouponsDocAccessFields_name_Delete
+}
+
+type CouponsDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_id {
+  create: CouponsDocAccessFields_id_Create
+  read: CouponsDocAccessFields_id_Read
+  update: CouponsDocAccessFields_id_Update
+  delete: CouponsDocAccessFields_id_Delete
+}
+
+type CouponsDocAccessFields_id_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_id_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_id_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_id_Delete {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_uses {
+  create: CouponsDocAccessFields_uses_Create
+  read: CouponsDocAccessFields_uses_Read
+  update: CouponsDocAccessFields_uses_Update
+  delete: CouponsDocAccessFields_uses_Delete
+}
+
+type CouponsDocAccessFields_uses_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_uses_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_uses_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_uses_Delete {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_discount {
+  create: CouponsDocAccessFields_discount_Create
+  read: CouponsDocAccessFields_discount_Read
+  update: CouponsDocAccessFields_discount_Update
+  delete: CouponsDocAccessFields_discount_Delete
+}
+
+type CouponsDocAccessFields_discount_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_discount_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_discount_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_discount_Delete {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_updatedAt {
+  create: CouponsDocAccessFields_updatedAt_Create
+  read: CouponsDocAccessFields_updatedAt_Read
+  update: CouponsDocAccessFields_updatedAt_Update
+  delete: CouponsDocAccessFields_updatedAt_Delete
+}
+
+type CouponsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_createdAt {
+  create: CouponsDocAccessFields_createdAt_Create
+  read: CouponsDocAccessFields_createdAt_Read
+  update: CouponsDocAccessFields_createdAt_Update
+  delete: CouponsDocAccessFields_createdAt_Delete
+}
+
+type CouponsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CouponsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CouponsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -9022,6 +9353,7 @@ type Access {
   pages: pagesAccess
   products: productsAccess
   orders: ordersAccess
+  coupons: couponsAccess
   media: mediaAccess
   categories: categoriesAccess
   users: usersAccess
@@ -10388,6 +10720,7 @@ type ordersAccess {
 
 type OrdersFields {
   orderedBy: OrdersFields_orderedBy
+  coupon: OrdersFields_coupon
   stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   stripeCheckoutSessionID: OrdersFields_stripeCheckoutSessionID
   stripeCheckoutURL: OrdersFields_stripeCheckoutURL
@@ -10419,6 +10752,29 @@ type OrdersFields_orderedBy_Update {
 }
 
 type OrdersFields_orderedBy_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_coupon {
+  create: OrdersFields_coupon_Create
+  read: OrdersFields_coupon_Read
+  update: OrdersFields_coupon_Update
+  delete: OrdersFields_coupon_Delete
+}
+
+type OrdersFields_coupon_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_coupon_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_coupon_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_coupon_Delete {
   permission: Boolean!
 }
 
@@ -10825,6 +11181,181 @@ type OrdersUpdateAccess {
 }
 
 type OrdersDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type couponsAccess {
+  fields: CouponsFields
+  create: CouponsCreateAccess
+  read: CouponsReadAccess
+  update: CouponsUpdateAccess
+  delete: CouponsDeleteAccess
+}
+
+type CouponsFields {
+  name: CouponsFields_name
+  id: CouponsFields_id
+  uses: CouponsFields_uses
+  discount: CouponsFields_discount
+  updatedAt: CouponsFields_updatedAt
+  createdAt: CouponsFields_createdAt
+}
+
+type CouponsFields_name {
+  create: CouponsFields_name_Create
+  read: CouponsFields_name_Read
+  update: CouponsFields_name_Update
+  delete: CouponsFields_name_Delete
+}
+
+type CouponsFields_name_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_name_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_name_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_name_Delete {
+  permission: Boolean!
+}
+
+type CouponsFields_id {
+  create: CouponsFields_id_Create
+  read: CouponsFields_id_Read
+  update: CouponsFields_id_Update
+  delete: CouponsFields_id_Delete
+}
+
+type CouponsFields_id_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_id_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_id_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_id_Delete {
+  permission: Boolean!
+}
+
+type CouponsFields_uses {
+  create: CouponsFields_uses_Create
+  read: CouponsFields_uses_Read
+  update: CouponsFields_uses_Update
+  delete: CouponsFields_uses_Delete
+}
+
+type CouponsFields_uses_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_uses_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_uses_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_uses_Delete {
+  permission: Boolean!
+}
+
+type CouponsFields_discount {
+  create: CouponsFields_discount_Create
+  read: CouponsFields_discount_Read
+  update: CouponsFields_discount_Update
+  delete: CouponsFields_discount_Delete
+}
+
+type CouponsFields_discount_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_discount_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_discount_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_discount_Delete {
+  permission: Boolean!
+}
+
+type CouponsFields_updatedAt {
+  create: CouponsFields_updatedAt_Create
+  read: CouponsFields_updatedAt_Read
+  update: CouponsFields_updatedAt_Update
+  delete: CouponsFields_updatedAt_Delete
+}
+
+type CouponsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CouponsFields_createdAt {
+  create: CouponsFields_createdAt_Create
+  read: CouponsFields_createdAt_Read
+  update: CouponsFields_createdAt_Update
+  delete: CouponsFields_createdAt_Delete
+}
+
+type CouponsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CouponsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CouponsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CouponsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CouponsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CouponsDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -12819,6 +13350,9 @@ type Mutation {
   createOrder(data: mutationOrderInput!, draft: Boolean): Order
   updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!, draft: Boolean): Order
   deleteOrder(id: String!): Order
+  createCoupon(data: mutationCouponInput!, draft: Boolean): Coupon
+  updateCoupon(id: String!, autosave: Boolean, data: mutationCouponUpdateInput!, draft: Boolean): Coupon
+  deleteCoupon(id: String!): Coupon
   createMedia(data: mutationMediaInput!, draft: Boolean): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean): Media
   deleteMedia(id: String!): Media
@@ -13060,6 +13594,7 @@ enum ProductUpdate__status_MutationInput {
 
 input mutationOrderInput {
   orderedBy: String
+  coupon: String
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
   stripeCheckoutURL: String
@@ -13095,6 +13630,7 @@ input mutationOrder_ItemsInput {
 
 input mutationOrderUpdateInput {
   orderedBy: String
+  coupon: String
   stripePaymentIntentID: String
   stripeCheckoutSessionID: String
   stripeCheckoutURL: String
@@ -13126,6 +13662,23 @@ input mutationOrderUpdate_ItemsInput {
   price: Float
   quantity: Float
   id: String
+}
+
+input mutationCouponInput {
+  name: String!
+  id: String!
+  uses: Float!
+  discount: Float!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationCouponUpdateInput {
+  name: String
+  uses: Float
+  discount: Float
+  updatedAt: String
+  createdAt: String
 }
 
 input mutationMediaInput {

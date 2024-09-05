@@ -2,7 +2,7 @@
 
 import payload from "payload";
 
-import type { Product, User } from "../../payload/payload-types";
+import type { Coupon, Product, User } from "../../payload/payload-types";
 import type { CartItem } from "../_providers/Cart/reducer";
 import { priceNumberFromJSON } from "../_utilities/priceUtilities";
 
@@ -14,6 +14,7 @@ export const createOrder = async (
   username: string,
   stripeCheckoutSessionID: string,
   stripeCheckoutURL: string,
+  coupon: Coupon | null,
 ): Promise<{ success: boolean }> => {
   if (cartItems.length < 1 || !userEmail || !username) {
     throw new Error("Invalid order data.");
@@ -74,6 +75,7 @@ export const createOrder = async (
         minecraftUsername: username,
       },
       items: products,
+      coupon: coupon?.id,
     };
     // create the order
     try {

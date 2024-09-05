@@ -10,6 +10,7 @@ import { priceIdFromJSON } from "../../app/_utilities/priceUtilities";
 export async function createCheckoutSession(
   cartItems: CartItem[],
   userEmail: string,
+  couponId?: string | null,
 ): Promise<{ url: string | null; stripeCheckoutSessionID: string | null }> {
   // TODO?: check mojang api if error return server-side error to combat frontend manipuation
   const origin: string = headers().get("origin") as string;
@@ -24,6 +25,11 @@ export async function createCheckoutSession(
     mode: "payment",
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/cancel`,
+    discounts: [
+      {
+        coupon: couponId,
+      },
+    ],
     shipping_address_collection: {
       allowed_countries: [
         "US", // USA

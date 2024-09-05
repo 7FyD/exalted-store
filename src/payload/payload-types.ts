@@ -26,6 +26,7 @@ export interface Config {
     pages: Page;
     products: Product;
     orders: Order;
+    coupons: Coupon;
     media: Media;
     categories: Category;
     users: User;
@@ -407,6 +408,7 @@ export interface Order {
   stripePaymentIntentID?: string | null;
   stripeCheckoutSessionID?: string | null;
   stripeCheckoutURL?: string | null;
+  coupon?: (string | null) | Coupon;
   total: number;
   contactDetails: {
     email: string;
@@ -446,6 +448,14 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+export interface Coupon {
+  name: string;
+  id: string;
+  uses: number;
+  discount: number;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Redirect {
   id: string;
