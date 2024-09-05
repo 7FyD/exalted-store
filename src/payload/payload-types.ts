@@ -16,7 +16,6 @@ export type Benefits =
 export type CartItems =
   | {
       product?: (string | null) | Product;
-      quantity?: number | null;
       id?: string | null;
     }[]
   | null;
@@ -405,10 +404,10 @@ export interface Product {
 export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
+  coupon?: (string | null) | Coupon;
   stripePaymentIntentID?: string | null;
   stripeCheckoutSessionID?: string | null;
   stripeCheckoutURL?: string | null;
-  coupon?: (string | null) | Coupon;
   total: number;
   contactDetails: {
     email: string;
@@ -421,7 +420,6 @@ export interface Order {
     | {
         product: string | Product;
         price?: number | null;
-        quantity?: number | null;
         id?: string | null;
       }[]
     | null;

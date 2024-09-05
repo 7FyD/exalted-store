@@ -11,34 +11,27 @@ import classes from "./index.module.scss";
 
 export const Price: React.FC<{
   product: Product;
-  quantity?: number;
   button?: "addToCart" | "removeFromCart" | false;
 }> = props => {
-  const { product, product: { priceJSON } = {}, button = "addToCart", quantity } = props;
+  const { product, product: { priceJSON } = {}, button = "addToCart" } = props;
 
   const [price, setPrice] = useState<{
     actualPrice: string;
-    withQuantity: string;
   }>(() => ({
     actualPrice: priceFromJSON(priceJSON),
-    withQuantity: priceFromJSON(priceJSON, quantity),
   }));
 
   useEffect(() => {
     setPrice({
       actualPrice: priceFromJSON(priceJSON),
-      withQuantity: priceFromJSON(priceJSON, quantity),
     });
-  }, [priceJSON, quantity]);
+  }, [priceJSON]);
 
   return (
     <div className={classes.actions}>
-      {typeof price?.actualPrice !== "undefined" && price?.withQuantity !== "" && (
+      {typeof price?.actualPrice !== "undefined" && (
         <div className={classes.price}>
-          <p>{price?.withQuantity}</p>
-          {quantity > 1 && (
-            <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
-          )}
+          <p>{price?.actualPrice}</p>
         </div>
       )}
       {button && button === "addToCart" && (

@@ -5109,7 +5109,6 @@ type User_Cart {
 
 type CartItems {
   product: Product
-  quantity: Float
   id: String
 }
 
@@ -5145,7 +5144,6 @@ enum Order_OrderDetails_status {
 type Order_Items {
   product: Product
   price: Float
-  quantity: Float
   id: String
 }
 
@@ -5175,7 +5173,6 @@ input Order_where {
   orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
-  items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5296,16 +5293,6 @@ input Order_items__price_operator {
   exists: Boolean
 }
 
-input Order_items__quantity_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
 input Order_items__id_operator {
   equals: String
   not_equals: String
@@ -5362,7 +5349,6 @@ input Order_where_and {
   orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
-  items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5383,7 +5369,6 @@ input Order_where_or {
   orderDetails__minecraftUsername: Order_orderDetails__minecraftUsername_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
-  items__quantity: Order_items__quantity_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5705,7 +5690,6 @@ type OrdersDocAccessFields_items_Delete {
 type OrdersDocAccessFields_items_Fields {
   product: OrdersDocAccessFields_items_product
   price: OrdersDocAccessFields_items_price
-  quantity: OrdersDocAccessFields_items_quantity
   id: OrdersDocAccessFields_items_id
 }
 
@@ -5752,29 +5736,6 @@ type OrdersDocAccessFields_items_price_Update {
 }
 
 type OrdersDocAccessFields_items_price_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_items_quantity {
-  create: OrdersDocAccessFields_items_quantity_Create
-  read: OrdersDocAccessFields_items_quantity_Read
-  update: OrdersDocAccessFields_items_quantity_Update
-  delete: OrdersDocAccessFields_items_quantity_Delete
-}
-
-type OrdersDocAccessFields_items_quantity_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_items_quantity_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_items_quantity_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_items_quantity_Delete {
   permission: Boolean!
 }
 
@@ -7050,7 +7011,6 @@ input User_where {
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
-  cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
@@ -7112,16 +7072,6 @@ input User_cart__items__product_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
-}
-
-input User_cart__items__quantity_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
   exists: Boolean
 }
 
@@ -7191,7 +7141,6 @@ input User_where_and {
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
-  cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
@@ -7208,7 +7157,6 @@ input User_where_or {
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
-  cart__items__quantity: User_cart__items__quantity_operator
   cart__items__id: User_cart__items__id_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
@@ -7387,7 +7335,6 @@ type UsersDocAccessFields_cart_items_Delete {
 
 type UsersDocAccessFields_cart_items_Fields {
   product: UsersDocAccessFields_cart_items_product
-  quantity: UsersDocAccessFields_cart_items_quantity
   id: UsersDocAccessFields_cart_items_id
 }
 
@@ -7411,29 +7358,6 @@ type UsersDocAccessFields_cart_items_product_Update {
 }
 
 type UsersDocAccessFields_cart_items_product_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_cart_items_quantity {
-  create: UsersDocAccessFields_cart_items_quantity_Create
-  read: UsersDocAccessFields_cart_items_quantity_Read
-  update: UsersDocAccessFields_cart_items_quantity_Update
-  delete: UsersDocAccessFields_cart_items_quantity_Delete
-}
-
-type UsersDocAccessFields_cart_items_quantity_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_cart_items_quantity_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_cart_items_quantity_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_cart_items_quantity_Delete {
   permission: Boolean!
 }
 
@@ -11023,7 +10947,6 @@ type OrdersFields_items_Delete {
 type OrdersFields_items_Fields {
   product: OrdersFields_items_product
   price: OrdersFields_items_price
-  quantity: OrdersFields_items_quantity
   id: OrdersFields_items_id
 }
 
@@ -11070,29 +10993,6 @@ type OrdersFields_items_price_Update {
 }
 
 type OrdersFields_items_price_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_items_quantity {
-  create: OrdersFields_items_quantity_Create
-  read: OrdersFields_items_quantity_Read
-  update: OrdersFields_items_quantity_Update
-  delete: OrdersFields_items_quantity_Delete
-}
-
-type OrdersFields_items_quantity_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_items_quantity_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_items_quantity_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_items_quantity_Delete {
   permission: Boolean!
 }
 
@@ -12074,7 +11974,6 @@ type UsersFields_cart_items_Delete {
 
 type UsersFields_cart_items_Fields {
   product: UsersFields_cart_items_product
-  quantity: UsersFields_cart_items_quantity
   id: UsersFields_cart_items_id
 }
 
@@ -12098,29 +11997,6 @@ type UsersFields_cart_items_product_Update {
 }
 
 type UsersFields_cart_items_product_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_cart_items_quantity {
-  create: UsersFields_cart_items_quantity_Create
-  read: UsersFields_cart_items_quantity_Read
-  update: UsersFields_cart_items_quantity_Update
-  delete: UsersFields_cart_items_quantity_Delete
-}
-
-type UsersFields_cart_items_quantity_Create {
-  permission: Boolean!
-}
-
-type UsersFields_cart_items_quantity_Read {
-  permission: Boolean!
-}
-
-type UsersFields_cart_items_quantity_Update {
-  permission: Boolean!
-}
-
-type UsersFields_cart_items_quantity_Delete {
   permission: Boolean!
 }
 
@@ -13624,7 +13500,6 @@ enum Order_OrderDetails_status_MutationInput {
 input mutationOrder_ItemsInput {
   product: String
   price: Float
-  quantity: Float
   id: String
 }
 
@@ -13660,7 +13535,6 @@ enum OrderUpdate_OrderDetails_status_MutationInput {
 input mutationOrderUpdate_ItemsInput {
   product: String
   price: Float
-  quantity: Float
   id: String
 }
 
@@ -13769,7 +13643,6 @@ input mutationUser_CartInput {
 
 input mutationUser_Cart_ItemsInput {
   product: String
-  quantity: Float
   id: String
 }
 
@@ -13803,7 +13676,6 @@ input mutationUserUpdate_CartInput {
 
 input mutationUserUpdate_Cart_ItemsInput {
   product: String
-  quantity: Float
   id: String
 }
 

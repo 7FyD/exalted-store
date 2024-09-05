@@ -61,11 +61,7 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
     // for each item in cart, lookup the product in Stripe and add its price to the total
     await Promise.all(
       fullUser?.cart?.items?.map(async (item: CartItems[0]): Promise<null> => {
-        const { product, quantity } = item;
-
-        if (!quantity) {
-          return null;
-        }
+        const { product } = item;
 
         if (typeof product === "string" || !product?.stripeProductID) {
           throw new Error("No Stripe Product ID");
@@ -83,7 +79,7 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
         }
 
         const price = prices.data[0];
-        total += price.unit_amount * quantity;
+        total += price.unit_amount;
 
         return null;
       }),

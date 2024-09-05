@@ -11,11 +11,10 @@ import classes from "./index.module.scss";
 
 export const AddToCartButton: React.FC<{
   product: Product;
-  quantity?: number;
   className?: string;
   appearance?: Props["appearance"];
 }> = props => {
-  const { product, quantity = 1, className, appearance = "primary" } = props;
+  const { product, className, appearance = "primary" } = props;
 
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart();
 
@@ -45,7 +44,6 @@ export const AddToCartButton: React.FC<{
           ? () => {
               addItemToCart({
                 product,
-                quantity,
               });
             }
           : undefined

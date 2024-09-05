@@ -1,9 +1,9 @@
-export const priceFromJSON = (jsonString: string, quantity = 1, raw?: boolean): string => {
+export const priceFromJSON = (jsonString: string, raw?: boolean): string => {
   let price = "";
   if (jsonString) {
     try {
       const parsed = JSON.parse(jsonString)?.data[0];
-      const priceValue = parsed.unit_amount * quantity;
+      const priceValue = parsed.unit_amount;
       const priceType = parsed.type;
 
       if (raw) return priceValue.toString();
@@ -60,13 +60,13 @@ export const unitAmountFromJSON = (jsonData: string): number | null => {
   }
 };
 
-export const priceNumberFromJSON = (priceJSON: string, quantity: number): number => {
+export const priceNumberFromJSON = (priceJSON: string): number => {
   let total = 0;
   if (priceJSON) {
     try {
       const parsed = JSON.parse(priceJSON)?.data[0];
       if (parsed?.unit_amount) {
-        total = parsed.unit_amount * quantity;
+        total = parsed.unit_amount;
       }
     } catch (e: unknown) {
       console.error("Cannot parse priceJSON"); // eslint-disable-line no-console

@@ -121,11 +121,6 @@ export const Orders: CollectionConfig = {
           type: "number",
           min: 0,
         },
-        {
-          name: "quantity",
-          type: "number",
-          min: 0,
-        },
       ],
     },
   ],

@@ -74,14 +74,13 @@ export const CartProvider = props => {
 
         if (parsedCart?.items && parsedCart?.items?.length > 0) {
           const initialCart = await Promise.all(
-            parsedCart.items.map(async ({ product, quantity }) => {
+            parsedCart.items.map(async ({ product }) => {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${product}`,
               );
               const data = await res.json();
               return {
                 product: data,
-                quantity,
               };
             }),
           );
@@ -147,7 +146,6 @@ export const CartProvider = props => {
             ...item,
             // flatten relationship to product
             product: item?.product?.id,
-            quantity: typeof item?.quantity === "number" ? item?.quantity : 0,
           };
         })
         .filter(Boolean) as CartItem[],
@@ -232,8 +230,7 @@ export const CartProvider = props => {
         return (
           acc +
           (typeof item.product === "object"
-            ? JSON.parse(item?.product?.priceJSON || "{}")?.data?.[0]?.unit_amount *
-              (typeof item?.quantity === "number" ? item?.quantity : 0)
+            ? JSON.parse(item?.product?.priceJSON || "{}")?.data?.[0]?.unit_amount
             : 0)
         );
       }, 0) || 0;

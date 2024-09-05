@@ -110,14 +110,6 @@ const Users: CollectionConfig = {
               type: "relationship",
               relationTo: "products",
             },
-            {
-              name: "quantity",
-              type: "number",
-              min: 0,
-              admin: {
-                step: 1,
-              },
-            },
           ],
         },
         // If you wanted to maintain a 'created on'

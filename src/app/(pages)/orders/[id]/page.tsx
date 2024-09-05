@@ -92,7 +92,6 @@ export default async function Order({ params: { id } }) {
         {order.items?.map((item, index) => {
           if (typeof item.product === "object") {
             const {
-              quantity,
               product,
               product: { id, title, meta, stripeProductID },
             } = item;
@@ -132,8 +131,7 @@ export default async function Order({ params: { id } }) {
                         {title}
                       </Link>
                     </h5>
-                    <p>{`Quantity: ${quantity}`}</p>
-                    <Price product={product} button={false} quantity={quantity} />
+                    <Price product={product} button={false} />
                   </div>
                 </div>
                 {!isLast && <HR />}

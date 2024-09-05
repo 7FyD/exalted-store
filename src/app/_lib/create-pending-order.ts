@@ -49,17 +49,13 @@ export const createOrder = async (
 
         return {
           product,
-          quantity: item.quantity,
           price: product.priceJSON,
         };
       }),
     );
 
     // calculate cart total
-    const total = products.reduce(
-      (sum, item) => sum + priceNumberFromJSON(item.price, item.quantity),
-      0,
-    );
+    const total = products.reduce((sum, item) => sum + priceNumberFromJSON(item.price), 0);
     payload.logger.info(`Total: ${total}`);
     // build the order data
     const orderData = {
@@ -85,8 +81,7 @@ export const createOrder = async (
           ...orderData,
           items: orderData.items.map(item => ({
             product: item.product.id,
-            quantity: item.quantity,
-            price: priceNumberFromJSON(item.price, 1),
+            price: priceNumberFromJSON(item.price),
           })),
         },
       });

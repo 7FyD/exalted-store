@@ -146,7 +146,6 @@ export const CartPage: React.FC<{
                     {cart?.items?.map((item, index) => {
                       if (typeof item.product === "object") {
                         const {
-                          quantity,
                           product,
                           product: { id, title, meta, stripeProductID },
                         } = item;
@@ -159,7 +158,6 @@ export const CartPage: React.FC<{
                             product={product}
                             title={title}
                             metaImage={metaImage}
-                            qty={quantity}
                             addItemToCart={addItemToCart}
                             key={index}
                             showPrice={false}
