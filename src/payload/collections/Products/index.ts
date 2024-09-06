@@ -56,7 +56,7 @@ const Products: CollectionConfig = {
       type: "array", // required
       label: "Benefits",
       minRows: 1,
-      maxRows: 4,
+      maxRows: 16,
       interfaceName: "Benefits",
       labels: {
         singular: "Benefit entry",
