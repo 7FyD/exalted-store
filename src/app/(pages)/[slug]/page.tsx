@@ -53,11 +53,6 @@ export default async function Page({ params: { slug = "home" } }) {
           <Hero {...hero} />
           <Gutter className="space-y-16">
             <Categories categories={categories} />
-            <div className="container">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa deleniti delectus
-              autem? Eligendi dignissimos dolor animi, quam saepe harum impedit exercitationem fuga.
-              Voluptates architecto accusamus quis mollitia nostrum! Quasi, a?
-            </div>
           </Gutter>
         </section>
       ) : (

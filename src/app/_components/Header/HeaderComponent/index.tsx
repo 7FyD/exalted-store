@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Header as HeaderType } from "../../../../payload/payload-types";
+import { useMediaQuery } from "../../../_hooks/use-media-query";
 import { useAuth } from "../../../_providers/Auth";
 import { CartLink } from "../../CartLink";
 import { Gutter } from "../../Gutter";
@@ -17,6 +18,7 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
   const { user } = useAuth();
   const path = usePathname();
   const currentPath = path.split("/")[1];
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const isAuthRoute =
     path.includes("login") || path.includes("create-account") || path.includes("recover-password");
   return (
@@ -25,62 +27,70 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
         !isAuthRoute && "mb-12"
       } ${user === undefined && "!hidden"}`}
     >
-      <Link className="flex" href="/">
-        <Image
-          src="/logo-nobg.png"
-          alt="A dragon behind a shield on which EK is written"
-          width={64}
-          height={64}
-        />
-      </Link>
-      {/* TODO: update nav items*/}
-      <div className="flex items-center gap-8">
-        {navItems.map(({ link }, i) => {
-          return (
-            <CMSLink
-              key={i}
-              {...link}
-              className={`hover:underline ${
-                (currentPath ===
-                  (typeof link.reference?.value !== "string" ? link.reference?.value.slug : "") ||
-                  link.url === path) &&
-                "!underline"
-              }`}
+      {isDesktop ? (
+        <>
+          <Link className="flex" href="/">
+            <Image
+              src="/logo-nobg.png"
+              alt="A dragon behind a shield on which EK is written"
+              width={64}
+              height={64}
             />
-          );
-        })}
-      </div>
-      <div className="flex items-center gap-8">
-        <CartLink className={`hover:underline ${currentPath === "cart" && "!underline"}`} />
-        {user && (
-          <Fragment>
-            <Link
-              href="/account"
-              className={`hover:underline ${currentPath === "account" && "!underline"}`}
-            >
-              Account
-            </Link>
-            <Link href="/logout" className={`hover:underline`}>
-              Logout
-            </Link>
-          </Fragment>
-        )}
-        {!user && (
-          // <Button
-          //   el="link"
-          //   href="/login"
-          //   label="Login"
-          //   appearance="primary"
-          //   className="hover:underline"
-          //   onClick={() => {
-          //     window.location.href = "/login";
-          //   }}
-          // />
-          <Button asChild className="px-4">
-            <Link href="/login">LOGIN</Link>
-          </Button>
-        )}
-      </div>
+          </Link>
+          {/* TODO: update nav items*/}
+          <div className="flex items-center gap-8">
+            {navItems.map(({ link }, i) => {
+              return (
+                <CMSLink
+                  key={i}
+                  {...link}
+                  className={`hover:underline ${
+                    (currentPath ===
+                      (typeof link.reference?.value !== "string"
+                        ? link.reference?.value.slug
+                        : "") ||
+                      link.url === path) &&
+                    "!underline"
+                  }`}
+                />
+              );
+            })}
+          </div>
+          <div className="flex items-center gap-8">
+            <CartLink className={`hover:underline ${currentPath === "cart" && "!underline"}`} />
+            {user && (
+              <Fragment>
+                <Link
+                  href="/account"
+                  className={`hover:underline ${currentPath === "account" && "!underline"}`}
+                >
+                  Account
+                </Link>
+                <Link href="/logout" className={`hover:underline`}>
+                  Logout
+                </Link>
+              </Fragment>
+            )}
+            {!user && (
+              // <Button
+              //   el="link"
+              //   href="/login"
+              //   label="Login"
+              //   appearance="primary"
+              //   className="hover:underline"
+              //   onClick={() => {
+              //     window.location.href = "/login";
+              //   }}
+              // />
+              <Button asChild className="px-4">
+                <Link href="/login">LOGIN</Link>
+              </Button>
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="text-lg text-center w-full text-purple-500">MOBILE NAVBAR</p>
+      )}
     </Gutter>
   );
 };

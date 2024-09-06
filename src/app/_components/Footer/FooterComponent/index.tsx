@@ -30,15 +30,17 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
           <div className={classes.wrap}>
             <div>
               <Link href="/">
-                <p className={`${josefin.className} text-3xl text-white`}>7FyD.dev</p>
+                <p className={`${josefin.className} text-xl text-white`}>Exalted-Kingdom</p>
               </Link>
 
-              <p>{footer?.copyright}</p>
+              <p className="text-sm font-light">{footer?.copyright}</p>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-row gap-2 md:gap-4 ">
               {navItems.map(({ link }) => {
                 return (
-                  <CMSLink className="text-white hover:underline" key={link.label} {...link} />
+                  <div key={link.url} className="flex justify-center items-center">
+                    <CMSLink className="text-white hover:underline" key={link.label} {...link} />
+                  </div>
                 );
               })}
             </div>
