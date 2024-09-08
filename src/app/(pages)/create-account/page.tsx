@@ -49,10 +49,10 @@ export default async function CreateAccount() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Create account",
+  title: "Exalted Kingdom Store - Create accout",
   description: "Join us and create your account!",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Create account",
+    title: "Exalted Kingdom Store - Create account",
     url: "/create-account",
   }),
 };

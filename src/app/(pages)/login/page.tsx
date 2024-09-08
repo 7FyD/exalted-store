@@ -43,10 +43,10 @@ export default async function Login() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Login",
+  title: "Exalted Kingdom Store - Login",
   description: "Login or create an account to get started.",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Login",
+    title: "Exalted Kingdom Store - Login",
     url: "/login",
   }),
 };

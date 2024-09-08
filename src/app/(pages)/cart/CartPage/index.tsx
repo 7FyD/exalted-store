@@ -167,7 +167,7 @@ export const CartPage: React.FC<{
                       return null;
                     })}
                   </ul>
-                  <Button className="mb-4 max-w-fit ml-auto" onClick={clearCart}>
+                  <Button className="mb-4 max-w-fit mx-auto md:!mr-0" onClick={clearCart}>
                     Clear cart
                   </Button>
                 </div>

@@ -22,14 +22,14 @@ const CartItem = ({ product, title, metaImage, addItemToCart, showPrice = true }
 
       <div className={classes.itemDetails}>
         <div className={classes.titleWrapper}>
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-center md:items-start">
             <h6>{title}</h6>
           </div>
           {showPrice && <Price product={product} button={false} />}
         </div>
       </div>
 
-      <div className={classes.subtotalWrapper}>
+      <div className={[classes.subtotalWrapper, "justify-center md:!justify-end"].join(" ")}>
         <Price product={product} button={false} />
         <RemoveFromCartButton product={product} />
       </div>

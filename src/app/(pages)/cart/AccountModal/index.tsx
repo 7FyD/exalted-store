@@ -83,8 +83,11 @@ const AccountModal: React.FC<AccountModalProps> = ({ account, onAccountUpdate })
             alt="Minecraft skin"
             width={30}
             height={30}
+            className="size-6 my-auto"
           />
-          <p>{account.name} - modify account</p>
+          <p>
+            {account.name} <span className="hidden md:inline-block"> - modify account</span>
+          </p>
         </div>
       );
     }
