@@ -12,6 +12,7 @@ import { CartLink } from "../../CartLink";
 import { Gutter } from "../../Gutter";
 import { CMSLink } from "../../Link";
 import { Button } from "../../ui/button";
+import MobileNav from "../MobileNav";
 
 const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || [];
@@ -56,41 +57,31 @@ const HeaderComponent: React.FC<{ header: HeaderType }> = ({ header }) => {
               );
             })}
           </div>
-          <div className="flex items-center gap-8">
-            <CartLink className={`hover:underline ${currentPath === "cart" && "!underline"}`} />
-            {user && (
-              <Fragment>
-                <Link
-                  href="/account"
-                  className={`hover:underline ${currentPath === "account" && "!underline"}`}
-                >
-                  Account
-                </Link>
-                <Link href="/logout" className={`hover:underline`}>
-                  Logout
-                </Link>
-              </Fragment>
-            )}
-            {!user && (
-              // <Button
-              //   el="link"
-              //   href="/login"
-              //   label="Login"
-              //   appearance="primary"
-              //   className="hover:underline"
-              //   onClick={() => {
-              //     window.location.href = "/login";
-              //   }}
-              // />
-              <Button asChild className="px-4">
-                <Link href="/login">LOGIN</Link>
-              </Button>
-            )}
-          </div>
         </>
       ) : (
-        <p className="text-lg text-center w-full text-purple-500">MOBILE NAVBAR</p>
+        <MobileNav header={header} />
       )}
+      <div className="flex items-center gap-8">
+        <CartLink className={`hover:underline ${currentPath === "cart" && "!underline"}`} />
+        {user && (
+          <Fragment>
+            <Link
+              href="/account"
+              className={`hover:underline ${currentPath === "account" && "!underline"}`}
+            >
+              Account
+            </Link>
+            <Link href="/logout" className={`hover:underline`}>
+              Logout
+            </Link>
+          </Fragment>
+        )}
+        {!user && (
+          <Button asChild className="px-4">
+            <Link href="/login">LOGIN</Link>
+          </Button>
+        )}
+      </div>
     </Gutter>
   );
 };
