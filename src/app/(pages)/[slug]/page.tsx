@@ -16,6 +16,7 @@ import { Blocks } from "../../_components/Blocks";
 import Categories from "../../_components/Categories";
 import { Gutter } from "../../_components/Gutter";
 import { Hero } from "../../_components/Hero";
+import RichText from "../../_components/RichText";
 import { generateMeta } from "../../_utilities/generateMeta";
 
 export default async function Page({ params: { slug = "home" } }) {
@@ -46,6 +47,7 @@ export default async function Page({ params: { slug = "home" } }) {
 
   const { hero, layout } = page;
 
+  const richText = hero.richText;
   return (
     <React.Fragment>
       {slug === "home" ? (
@@ -53,6 +55,7 @@ export default async function Page({ params: { slug = "home" } }) {
           <Hero {...hero} />
           <Gutter className="space-y-16">
             <Categories categories={categories} />
+            <RichText className="text-center md:!text-start" content={richText} />
           </Gutter>
         </section>
       ) : (
