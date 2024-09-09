@@ -19,7 +19,6 @@ const jost = Jost({
 });
 
 // TODO: remove all unnecessary files and update the whole codebase
-// TODO: revamp whole color scheme and UI, keeping optimal UX
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (

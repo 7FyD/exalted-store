@@ -23,11 +23,7 @@ export default async function Login() {
 
   return (
     <section className={classes.login}>
-      <div className={`${classes.heroImg} ${josefin.className}`}>
-        <Link className="text-4xl mx-14 top-10 relative" href="https://7fyd.dev" target="_blank">
-          7FyD.dev (here would be an image)
-        </Link>
-      </div>
+      <div className={`${classes.heroImg} ${josefin.className}`}></div>
 
       <div className={classes.formWrapper}>
         <div className={classes.formContainer}>

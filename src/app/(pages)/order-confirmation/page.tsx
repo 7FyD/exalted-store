@@ -18,10 +18,10 @@ export default async function OrderConfirmation() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Order Confirmation",
+  title: "Exalted Kingdom Store - Order confirmation",
   description: "Your order has been confirmed.",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Order Confirmation",
+    title: "Exalted Kingdom Store - Order confirmation",
     url: "/order-confirmation",
   }),
 };

@@ -1,10 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { Metadata } from "next";
 
 import { Product } from "../../../../payload/payload-types";
 import { Gutter } from "../../../_components/Gutter";
 import { fetchProducts } from "../../../_lib/fetch-products";
+import { mergeOpenGraph } from "../../../_utilities/mergeOpenGraph";
 import RankCard from "./RankCard";
 
 const RanksPage = () => {

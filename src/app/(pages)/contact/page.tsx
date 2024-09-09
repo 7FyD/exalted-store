@@ -1,6 +1,10 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { FaDiscord } from "react-icons/fa";
+import { Mail, MapPin } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
 
 import { Gutter } from "../../_components/Gutter";
+import { mergeOpenGraph } from "../../_utilities/mergeOpenGraph";
 
 const Contact = async () => {
   return (
@@ -15,15 +19,23 @@ const Contact = async () => {
         <div className="flex flex-col items-start justify-center gap-2 !mt-6">
           <div className="flex flex-row items-center gap-3">
             <Mail />
-            <p>contact@7fyd.dev</p>
+            <Link
+              className="text-blue-400 hover:underline hover:text-blue-600"
+              href="mailto:exalted-kingdom@proton.me"
+            >
+              exalted-kingdom@proton.me
+            </Link>
           </div>
           <div className="flex flex-row items-center gap-3">
-            <Phone />
-            <p>+40 770 123 123</p>
-          </div>
-          <div className="flex flex-row items-center gap-3">
-            <MapPin />
-            <p>4 Privet Drive, Little Whinging, Surrey, England, Great Britain</p>
+            <FaDiscord size={24} />
+            <Link
+              className="text-blue-400 hover:underline hover:text-blue-600"
+              href="https://exalted-kingdom.com/discord"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Click to join our discord!
+            </Link>
           </div>
         </div>
       </Gutter>
@@ -32,3 +44,12 @@ const Contact = async () => {
 };
 
 export default Contact;
+
+export const metadata: Metadata = {
+  title: "Exalted Kingdom Store - Contact",
+  description: "Contact us - get in touch now!",
+  openGraph: mergeOpenGraph({
+    title: "Exalted Kingdom Store - Contact",
+    url: "/login",
+  }),
+};

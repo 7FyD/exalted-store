@@ -59,7 +59,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ header }) => {
       <SheetContent side="left" className="pr-0 border-darkred-600 border-r-[3px]">
         <MobileLink href="/" className="flex items-center gap-3 mb-12" onOpenChange={setOpen}>
           <Image
-            src="/logo-nobg.png"
+            src="/logo-nobg.webp"
             alt="Exalted Kingdom Logo, a red shield with a white dragon behind it, EK being written on it."
             width={48}
             height={48}

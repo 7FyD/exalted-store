@@ -87,10 +87,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Orders",
+  title: "Exalted Kingdom Store - Orders",
   description: "Your orders.",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Orders",
+    title: "Exalted Kingdom Store - Orders",
     url: "/orders",
   }),
 };

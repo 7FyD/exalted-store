@@ -25,7 +25,7 @@ const Breadcrumbs: React.FC<{ showHR?: boolean }> = ({ showHR = false }) => {
 
   return (
     <div>
-      <div className="flex items-center gap-2 text-foreground/90 text-lg">
+      <div className="hidden md:!flex items-center gap-2 text-foreground/90 text-lg">
         {pathArray.map((path, index) => {
           return (
             <Fragment key={index}>

@@ -3,7 +3,11 @@ import type { AfterChangeHook } from "payload/dist/collections/config/types";
 
 import type { Order } from "../../../payload-types";
 export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
-  if (operation === "update" && doc.orderedBy && doc.orderDetails.status === "paid") {
+  if (
+    (operation === "update" || operation == "create") &&
+    doc.orderedBy &&
+    doc.orderDetails.status === "paid"
+  ) {
     // TODO: make separate function for updating coupon
     const { payload } = req;
     const coupon = doc.coupon || null;
@@ -33,6 +37,7 @@ export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, ope
         minute: "2-digit",
         hour12: true,
       });
+      console.log("discord request timestamp: " + timestamp);
       const response = await fetch("http://65.108.249.37:3001/v1/order/new", {
         method: "POST",
         headers: {
@@ -45,7 +50,7 @@ export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, ope
           timestamp,
         }),
       });
-
+      console.log(response);
       if (!response.ok) {
         console.error("Failed to send Discord message:", await response.text());
       }

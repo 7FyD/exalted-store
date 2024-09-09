@@ -10,10 +10,10 @@ const Success = ({ searchParams }) => {
 export default Success;
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Styleguide",
+  title: "Exalted Kingdom Store - Order successful",
   description: "Styleguide",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Styleguide",
-    url: "/styleguide",
+    title: "Exalted Kingdom Store - Order successful",
+    url: "/success",
   }),
 };

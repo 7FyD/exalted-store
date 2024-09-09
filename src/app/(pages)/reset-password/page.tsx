@@ -18,10 +18,10 @@ export default async function ResetPassword() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Reset Password",
+  title: "Exalted Kingdom Store - Reset password",
   description: "Enter a new password.",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Reset Password",
+    title: "Exalted Kingdom Store - Reset password",
     url: "/reset-password",
   }),
 };

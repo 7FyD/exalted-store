@@ -10,8 +10,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #000;
-    background-image: url('/assets/images/login-bg.jpg');
+    background-image: url('/assets/images/login.png');
   }
 
   p {
@@ -42,8 +41,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  // background-color: purple;
-
+  background-image: url('/assets/images/login.png');
+  
   @include mid-break {
     background: none;
     display: flex;

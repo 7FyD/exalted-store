@@ -153,10 +153,10 @@ export default async function Order({ params: { id } }) {
 
 export async function generateMetadata({ params: { id } }): Promise<Metadata> {
   return {
-    title: `Order ${id}`,
+    title: `Exalted Kingdom Store - ${id}`,
     description: `Order details for order ${id}.`,
     openGraph: mergeOpenGraph({
-      title: `Order ${id}`,
+      title: `Exalted Kingdom Store - ${id}`,
       url: `/orders/${id}`,
     }),
   };

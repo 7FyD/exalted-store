@@ -29,10 +29,10 @@ export default async function Logout() {
 }
 
 export const metadata: Metadata = {
-  title: "7FyD Store | Logout",
+  title: "Exalted Kingdom Store - Logout",
   description: "Logout and come back another day.",
   openGraph: mergeOpenGraph({
-    title: "7FyD Store | Logout",
+    title: "Exalted Kingdom Store - Logout",
     url: "/logout",
   }),
 };

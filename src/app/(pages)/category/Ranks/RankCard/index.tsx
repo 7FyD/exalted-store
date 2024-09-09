@@ -28,11 +28,11 @@ const RankCard: React.FC<{ product: Product; index: number }> = ({ product, inde
           Exalted-Kingdom Discord.
         </p>
         {/* TODO: IF PRODUCT HAS DISCOUNT PRICE SHOW THIS IF NOT DONT SHOW IT SIMPLEEEEEEE */}
-        <p className="text-destructive line-through">
+        {/* <p className="text-destructive line-through">
           {product.priceJSON ? `$${priceNumberFromJSON(product.priceJSON) / 100}` : "$15"}
-        </p>
+        </p> */}
         <p className="mt-[-16px]">
-          {product.priceJSON ? `$${priceNumberFromJSON(product.priceJSON) / 100 - 0.01}` : "$10"}
+          {product.priceJSON ? `$${priceNumberFromJSON(product.priceJSON) / 100}` : "$10"}
         </p>
       </div>
       <RankDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} product={product} />
