@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import next from "next";
 import nextBuild from "next/dist/build";
+import nodemailer from "nodemailer";
 import path from "path";
 
 dotenv.config({
@@ -13,10 +14,25 @@ import payload from "payload";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const transport = nodemailer.createTransport({
+  host: "smtp.resend.com",
+  secure: true,
+  port: 465,
+  auth: {
+    user: "resend",
+    pass: process.env.RESEND_API_KEY,
+  },
+});
+
 const start = async (): Promise<void> => {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET || "",
     express: app,
+    email: {
+      fromName: "Admin",
+      fromAddress: "admin@exalted-kingdom.com",
+      transport,
+    },
     onInit: () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
     },

@@ -8,7 +8,6 @@ export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, ope
     doc.orderedBy &&
     doc.orderDetails.status === "paid"
   ) {
-    // TODO: make separate function for updating coupon
     const { payload } = req;
     const coupon = doc.coupon || null;
     if (coupon) {
@@ -50,7 +49,6 @@ export const sendDiscordMessage: AfterChangeHook<Order> = async ({ doc, req, ope
           timestamp,
         }),
       });
-      console.log(response);
       if (!response.ok) {
         console.error("Failed to send Discord message:", await response.text());
       }
