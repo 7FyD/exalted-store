@@ -16,16 +16,18 @@ const PORT = process.env.PORT || 3000;
 
 const transport = nodemailer.createTransport({
   host: "smtp.resend.com",
-  secure: true,
-  port: 465,
+  secure: false,
+  port: 587,
   auth: {
     user: "resend",
     pass: process.env.RESEND_API_KEY,
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
   logger: true, // Enable logging
   debug: true, // Show debug output
 });
-
 const start = async (): Promise<void> => {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET || "",
