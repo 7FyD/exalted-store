@@ -10,7 +10,8 @@ export const priceFromJSON = (jsonString: string, raw?: boolean): string => {
 
       price = (priceValue / 100).toLocaleString("en-US", {
         style: "currency",
-        currency: "EUR", // TODO: use `parsed.currency`
+        currency: "USD", // TODO: use `parsed.currency`
+        // TODO: use USD everywhere
       });
 
       if (priceType === "recurring") {

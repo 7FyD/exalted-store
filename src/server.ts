@@ -22,6 +22,8 @@ const transport = nodemailer.createTransport({
     user: "resend",
     pass: process.env.RESEND_API_KEY,
   },
+  logger: true, // Enable logging
+  debug: true, // Show debug output
 });
 
 const start = async (): Promise<void> => {
