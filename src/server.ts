@@ -25,8 +25,6 @@ const transport = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false,
   },
-  logger: true, // Enable logging
-  debug: true, // Show debug output
 });
 const start = async (): Promise<void> => {
   await payload.init({

@@ -2,13 +2,11 @@ import { Page } from "../../../payload/payload-types";
 import { Gutter } from "../../_components/Gutter";
 import { Media } from "../../_components/Media";
 
-import classes from "./index.module.scss";
-
 export const HighImpactHero: React.FC<Page["hero"]> = ({ richText, media, links }) => {
   return (
     <Gutter className="flex flex-col">
       <div
-        className={`w-full mx-auto hidden md:block hover:cursor-pointer hover:scale-105 transition-transform ${classes.borderImage}`}
+        className={`w-full mx-auto hidden md:block hover:cursor-pointer hover:scale-105 transition-transform`}
       >
         {typeof media === "object" && (
           <Media

@@ -1,9 +1,1 @@
 @import '../../_css/queries.scss';
-
-.borderImage {
-  border-width: 20px;
-  border-color: rgb(255, 195, 118);
-  border-style: solid;
-  border-image-source:  url(/square-border.webp);
-  border-image: url(/square-border.webp) 100 stretch;
-}
